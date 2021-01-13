@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Pathfinding;
+using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -6,7 +7,9 @@ public class EnemySpawner : MonoBehaviour
     public SpawnManagerSO spawnManager;
     int instanceNumber;
 
-	private void Start()
+    public Transform target;
+
+    private void Start()
 	{
 		SpawnEnemies();
 	}
@@ -25,6 +28,15 @@ public class EnemySpawner : MonoBehaviour
 
             // Moves to the next spawn point index. If it goes out of range, it wraps back to the start.
             currentSpawnPointIndex = (currentSpawnPointIndex + 1) % spawnManager.spawnPoints.Length;
+
+            if (target != null)
+			{
+                var destinationSetter = currentEntity.GetComponent<AIDestinationSetter>();
+                if (destinationSetter != null)
+				{
+                    destinationSetter.target = target;
+				}
+			}
 
             instanceNumber++;
         }
