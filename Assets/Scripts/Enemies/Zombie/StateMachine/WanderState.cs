@@ -1,33 +1,29 @@
 ﻿using UnityEngine;
 
 public class WanderState : ZombieState {
-    public WanderState(ZombieController controller)
-    {
-        this.controller = controller;
-    }
+    public WanderState(ZombieController controller, StateMachine stateMachine) : base(controller, stateMachine) { }
 
 	public override void Enter()
 	{
-		//Debug.Log("Entering WanderState");
+		CalculateNewTarget();
 	}
 
-	public override void HandleInput()
+	private void CalculateNewTarget()
 	{
-		//Debug.Log("WanderState.HandleInput");
+		Vector3 newTarget = new Vector3(controller.rb.position.x + Random.Range(-10, 10), controller.rb.position.y + Random.Range(-10, 10));
+
+		controller.UpdatePath(newTarget);
 	}
 
 	public override void LogicUpdate()
 	{
-		//Debug.Log("WanderState.LogicUpdate");
+		if (controller.mover.hasReachedEndOfPath)
+			CalculateNewTarget();
 	}
 
-	public override void PhysicsUpdate()
+	public override void PlayerFound(GameObject player)
 	{
-		//Debug.Log("WanderState.PhysicsUpdate");
-	}
-
-	public override void Exit()
-	{
-		//Debug.Log("WanderState.Exit");
+		controller.chase.target = player.transform;
+		stateMachine.ChangeState(controller.chase);
 	}
 }

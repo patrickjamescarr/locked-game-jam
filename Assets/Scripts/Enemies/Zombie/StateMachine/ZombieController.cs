@@ -1,28 +1,24 @@
 ﻿using Pathfinding;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ZombieController : MonoBehaviour
 {
     private StateMachine stateMachine;
 
-    public State chase;
-    public State wander;
-    public State attack;
-    private Rigidbody2D rb;
+    public ChaseState chase;
+    public WanderState wander;
+    public AttackState attack;
+    public Rigidbody2D rb;
 
+    public Mover mover;
 
     [Header("Movement")]
-    public Transform target;
+    public Vector3 target;
     public float acceleration = 5f;
     public float maxSpeed = 10f;
     public float nextWaypointDistance = 3f;
 
-    private Path path;
-    private int currentWaypoint = 0;
-    private bool reachedEndOfPath = false;
+    private bool newTargetCalculated = true;
 
     Seeker seeker;
 
@@ -31,29 +27,32 @@ public class ZombieController : MonoBehaviour
 		rb = GetComponent<Rigidbody2D>();
         seeker = GetComponent<Seeker>();
 
-        chase = new ChaseState(this);
-        wander = new WanderState(this);
-        attack = new AttackState(this);
+        mover = new Mover(nextWaypointDistance);
 
         stateMachine = new ZombieStateMachine(this);
+        wander = new WanderState(this, stateMachine);
+        chase = new ChaseState(this, stateMachine);
+        attack = new AttackState(this, stateMachine);
 
         stateMachine.Initialize(wander);
-
-        //InvokeRepeating("UpdatePath", 0f, .5f);
     }
 
-    void UpdatePath()
+    public void UpdatePath(Vector3 newTarget)
 	{
-        if (seeker.IsDone() && target != null)
-            seeker.StartPath(rb.position, target.position, OnPathComplete);
+        newTargetCalculated = false;
+        target = newTarget;
+
+        if (seeker.IsDone() && newTarget != null)
+            seeker.StartPath(rb.position, newTarget, OnPathComplete);
     }
 
 	private void OnPathComplete(Path p)
 	{
+        newTargetCalculated = true;
+
         if (!p.error)
         {
-            this.path = p;
-            currentWaypoint = 0;
+            mover.SetPath(p);
         }
 	}
 
@@ -62,40 +61,30 @@ public class ZombieController : MonoBehaviour
         stateMachine.CurrentState.HandleInput();
         stateMachine.CurrentState.LogicUpdate();
 
-        if (UnityEngine.Random.Range(0f, 50f) <= 1f)
+        if (!newTargetCalculated)
 		{
-            UpdatePath();
+            UpdatePath(target);
 		}
     }
 
 	private void FixedUpdate()
 	{
         stateMachine.CurrentState.PhysicsUpdate();
+    }
 
-        if (path == null)
-            return;
-
-        if (currentWaypoint >= path.vectorPath.Count)
-        {
-            reachedEndOfPath = true;
-            return;
-        }
-        else
-        {
-            reachedEndOfPath = false;
-        }
-
-        Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
-        Vector2 force = direction * acceleration * Time.deltaTime;
-
-        if (rb.velocity.magnitude < maxSpeed)
+	private void OnTriggerEnter2D(Collider2D other)
+	{
+        if (other.CompareTag("Player"))
 		{
-			rb.AddForce(force);
+            stateMachine.CurrentState.PlayerFound(other.gameObject);
 		}
+	}
 
-        float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
-
-        if (distance <= nextWaypointDistance)
-            currentWaypoint++;
+	private void OnTriggerExit2D(Collider2D other)
+	{
+        if (other.CompareTag("Player"))
+        {
+            stateMachine.CurrentState.PlayerLost();
+        }
     }
 }

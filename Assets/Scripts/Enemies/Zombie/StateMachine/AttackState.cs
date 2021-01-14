@@ -1,6 +1,3 @@
 ﻿public class AttackState : ZombieState {
-    public AttackState(ZombieController controller)
-    {
-        this.controller = controller;
-    }
+    public AttackState(ZombieController controller, StateMachine stateMachine) : base(controller, stateMachine) { }
 }

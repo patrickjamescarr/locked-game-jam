@@ -29,14 +29,14 @@ public class EnemySpawner : MonoBehaviour
             // Moves to the next spawn point index. If it goes out of range, it wraps back to the start.
             currentSpawnPointIndex = (currentSpawnPointIndex + 1) % spawnManager.spawnPoints.Length;
 
-			if (target != null)
-			{
-				var destinationSetter = currentEntity.GetComponent<ZombieController>();
-				if (destinationSetter != null)
-				{
-					destinationSetter.target = target;
-				}
-			}
+			//if (target != null)
+			//{
+			//	var destinationSetter = currentEntity.GetComponent<ZombieController>();
+			//	if (destinationSetter != null)
+			//	{
+			//		destinationSetter.target = target;
+			//	}
+			//}
 
 			instanceNumber++;
         }

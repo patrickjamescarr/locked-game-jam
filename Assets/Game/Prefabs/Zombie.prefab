@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: 1001457665716628695}
   - component: {fileID: 3618103740941667790}
   - component: {fileID: 102067565944831249}
+  - component: {fileID: 7915868335742656790}
   m_Layer: 0
-  m_Name: Test
+  m_Name: Zombie
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,7 +76,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf457e58cffa8344a85ea7f7b4d72d74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
+  rb: {fileID: 0}
+  target: {x: 0, y: 0, z: 0}
   acceleration: 200
   maxSpeed: 10
   nextWaypointDistance: 1.8
@@ -126,6 +128,22 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.44839948, y: 0.27721334}
   m_EdgeRadius: 0
+--- !u!58 &7915868335742656790
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2933998284111068903}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 5
 --- !u!1 &4975555187651759060
 GameObject:
   m_ObjectHideFlags: 0
