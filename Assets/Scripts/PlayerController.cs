@@ -1,11 +1,17 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 
-public class PlayerController : MonoBehaviour, IDamageable
+public class PlayerController : MonoBehaviour
 {
-    public float speed = 5f;
 	public Camera cam;
 	public Transform gunSprite;
 	public GunSO gun;
+	public GameObject damageTextPrefab;
+
+	[Header("Stats")]
+	public float health = 100f;
+	public float speed = 5f;
+
 
 	private void Start()
 	{
@@ -61,6 +67,26 @@ public class PlayerController : MonoBehaviour, IDamageable
 
 	public void TakeDamage(float damage)
 	{
-		Debug.Log($"Player being damaged: {damage}");
+		if (damageTextPrefab != null)
+			DisplayDamageText(damage);
+
+		health -= damage;
+
+		if (health <= 0f)
+			Die();
+	}
+
+	private void Die()
+	{
+		Debug.Log("Player died!");
+	}
+
+	private void DisplayDamageText(float damage)
+	{
+		var go = Instantiate(damageTextPrefab, transform);
+		var textMesh = go.GetComponentInChildren<TextMeshPro>();
+
+		if (textMesh != null)
+			textMesh.SetText(((int)damage).ToString());
 	}
 }

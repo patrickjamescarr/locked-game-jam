@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 4292147052165573749}
   - component: {fileID: 8903159845581419573}
   - component: {fileID: 1001457665716628695}
-  - component: {fileID: 3618103740941667790}
   - component: {fileID: 102067565944831249}
-  - component: {fileID: 7915868335742656790}
+  - component: {fileID: 4631190927396304928}
+  - component: {fileID: 8021697373099540091}
   m_Layer: 0
   m_Name: Zombie
   m_TagString: Untagged
@@ -76,35 +76,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf457e58cffa8344a85ea7f7b4d72d74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 0}
+  rb: {fileID: 4631190927396304928}
   target: {x: 0, y: 0, z: 0}
   acceleration: 200
   maxSpeed: 10
-  nextWaypointDistance: 1.8
+  nextWaypointDistance: 1.5
   health: 100
+  attack: 10
+  waitBetweenAttacks: 0.8
+  detectionDistance: 5
   damageTextPrefab: {fileID: 187816140549474075, guid: 8e3b777d548cb784f8783055bd29df74,
     type: 3}
---- !u!50 &3618103740941667790
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2933998284111068903}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 1.5
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
 --- !u!61 &102067565944831249
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -131,8 +113,29 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.49400362, y: 0.9797752}
   m_EdgeRadius: 0
---- !u!58 &7915868335742656790
-CircleCollider2D:
+--- !u!50 &4631190927396304928
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2933998284111068903}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 1.5
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
+--- !u!61 &8021697373099540091
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -144,9 +147,19 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.06733203, y: -0.3013909}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 2}
+    newSize: {x: 1.5, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Radius: 5
+  m_Size: {x: 0.8909862, y: 1.1282511}
+  m_EdgeRadius: 0
 --- !u!1 &4975555187651759060
 GameObject:
   m_ObjectHideFlags: 0

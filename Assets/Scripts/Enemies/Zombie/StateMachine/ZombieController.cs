@@ -1,5 +1,4 @@
 ﻿using Pathfinding;
-using System;
 using TMPro;
 using UnityEngine;
 
@@ -8,10 +7,11 @@ public class ZombieController : MonoBehaviour, IDamageable
 	private StateMachine stateMachine;
 	private Seeker seeker;
 	private bool newTargetCalculated = true;
+	private float timeSinceDamage = 0f;
 
 	public ChaseState chase;
 	public WanderState wander;
-	public AttackState attack;
+	public AttackState attackState;
 	public Rigidbody2D rb;
 	public Mover mover;
 
@@ -23,6 +23,9 @@ public class ZombieController : MonoBehaviour, IDamageable
 
 	[Header("Stats")]
 	public int health = 100;
+	public float attack = 10f;
+	public float waitBetweenAttacks = 2f;
+	public float detectionDistance = 10f;
 
 	[Header("Misc")]
 	public GameObject damageTextPrefab;
@@ -37,7 +40,7 @@ public class ZombieController : MonoBehaviour, IDamageable
 		stateMachine = new ZombieStateMachine(this);
 		wander = new WanderState(this, stateMachine);
 		chase = new ChaseState(this, stateMachine);
-		attack = new AttackState(this, stateMachine);
+		attackState = new AttackState(this, stateMachine);
 
 		stateMachine.Initialize(wander);
 	}
@@ -77,26 +80,18 @@ public class ZombieController : MonoBehaviour, IDamageable
 		stateMachine.CurrentState.PhysicsUpdate();
 	}
 
-	private void OnTriggerEnter2D(Collider2D other)
+	public void PlayerFound(GameObject player)
 	{
-		if (other.CompareTag("Player"))
-		{
-			stateMachine.CurrentState.PlayerFound(other.gameObject);
-		}
+		stateMachine.CurrentState.PlayerFound(player);
 	}
 
-	private void OnTriggerExit2D(Collider2D other)
+	public void PlayerLost(GameObject player)
 	{
-		if (other.CompareTag("Player"))
-		{
-			stateMachine.CurrentState.PlayerLost();
-		}
+		stateMachine.CurrentState.PlayerLost();
 	}
 
 	public void TakeDamage(float damage)
 	{
-		Debug.Log($"Taking damage {damage}");
-
 		health -= (int)damage;
 
 		if (damageTextPrefab != null)
@@ -120,5 +115,34 @@ public class ZombieController : MonoBehaviour, IDamageable
 		// TODO: Notify Points Scored
 
 		Destroy(this.gameObject);
+	}
+
+	private void OnTriggerEnter2D(Collider2D other)
+	{
+		if (other.CompareTag("Player"))
+		{
+			var playerController = other.gameObject.GetComponent<PlayerController>();
+			DealPlayerDamage(playerController);
+		}
+	}
+
+	private void DealPlayerDamage(PlayerController player)
+	{
+		player.TakeDamage(attack);
+		timeSinceDamage = 0f;
+	}
+
+	private void OnTriggerStay2D(Collider2D other)
+	{
+		if (other.gameObject.CompareTag("Player"))
+		{
+			timeSinceDamage += Time.deltaTime;
+
+			if (timeSinceDamage >= waitBetweenAttacks)
+			{
+				var playerController = other.gameObject.GetComponent<PlayerController>();
+				DealPlayerDamage(playerController);
+			}
+		}
 	}
 }

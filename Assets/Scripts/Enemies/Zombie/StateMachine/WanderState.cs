@@ -19,6 +19,22 @@ public class WanderState : ZombieState {
 	{
 		if (controller.mover.hasReachedEndOfPath)
 			CalculateNewTarget();
+
+		if (Random.Range(0f, 50f) <= 1)
+			DetectPlayer();
+	}
+
+	private void DetectPlayer()
+	{
+		Collider2D[] result = Physics2D.OverlapCircleAll(controller.transform.position, controller.detectionDistance);
+
+		foreach(var collider in result)
+		{
+			if (collider.CompareTag("Player"))
+			{
+				PlayerFound(collider.gameObject);
+			}
+		}
 	}
 
 	public override void PlayerFound(GameObject player)
