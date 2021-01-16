@@ -8,7 +8,6 @@ public class Projectile : MonoBehaviour
 	private Action<Projectile> deactivateCallback;
 	private Vector3 shootDirection;
 	private float shotSpeed;
-
 	private float damageValue;
 
 	public void Shoot(Vector2 direction, float speed, float shotDuration, float damage, Action<Projectile> callback)
@@ -21,9 +20,9 @@ public class Projectile : MonoBehaviour
 		damageValue = damage;
 	}
 
-	public int GetDamage()
+	public float GetDamage()
 	{
-		return 10;
+		return damageValue * (duration - currentDuration / duration);
 	}
 
 	private void Update()
@@ -52,7 +51,7 @@ public class Projectile : MonoBehaviour
 
 		if (damageable != null)
 		{
-			damageable.TakeDamage(damageValue);
+			damageable.TakeDamage(GetDamage());
 		}
 
 		DeactivateProjectile();
