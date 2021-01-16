@@ -81,6 +81,9 @@ MonoBehaviour:
   acceleration: 200
   maxSpeed: 10
   nextWaypointDistance: 1.8
+  health: 100
+  damageTextPrefab: {fileID: 187816140549474075, guid: 8e3b777d548cb784f8783055bd29df74,
+    type: 3}
 --- !u!50 &3618103740941667790
 Rigidbody2D:
   serializedVersion: 4
@@ -115,7 +118,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.02219072, y: -0.32969224}
+  m_Offset: {x: 0.00061134994, y: -0.30777466}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -126,7 +129,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.44839948, y: 0.27721334}
+  m_Size: {x: 0.49400362, y: 0.9797752}
   m_EdgeRadius: 0
 --- !u!58 &7915868335742656790
 CircleCollider2D:

@@ -22,7 +22,7 @@ public class Projectile : MonoBehaviour
 
 	public float GetDamage()
 	{
-		return damageValue * (duration - currentDuration / duration);
+		return damageValue / (duration - currentDuration / duration);
 	}
 
 	private void Update()

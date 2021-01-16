@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59c6df9a601be114e862942a74592e30, type: 3}
   m_Name: Revolver
   m_EditorClassIdentifier: 
-  damage: 5
+  gunName: 
+  damage: 50
   damageRange: 5
-  speed: 500
+  speed: 20
   bulletPrefab: {fileID: 7315884780330537890, guid: 8a2abe2cd625efd42b4dde82f8b71d59,
     type: 3}
   cooldownTime: 0

@@ -1,4 +1,6 @@
 ﻿using Pathfinding;
+using System;
+using TMPro;
 using UnityEngine;
 
 public class ZombieController : MonoBehaviour, IDamageable
@@ -21,6 +23,9 @@ public class ZombieController : MonoBehaviour, IDamageable
 
 	[Header("Stats")]
 	public int health = 100;
+
+	[Header("Misc")]
+	public GameObject damageTextPrefab;
 
 	void Start()
 	{
@@ -94,8 +99,20 @@ public class ZombieController : MonoBehaviour, IDamageable
 
 		health -= (int)damage;
 
+		if (damageTextPrefab != null)
+			DisplayDamageText(damage);
+
 		if (health < 0)
 			Die();
+	}
+
+	private void DisplayDamageText(float damage)
+	{
+		var go = Instantiate(damageTextPrefab, transform);
+		var textMesh = go.GetComponentInChildren<TextMeshPro>();
+
+		if (textMesh != null)
+			textMesh.SetText(((int)damage).ToString());
 	}
 
 	private void Die()
