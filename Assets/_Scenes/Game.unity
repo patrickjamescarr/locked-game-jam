@@ -41335,19 +41335,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 404732088, guid: d6d57caaaba308a4d9dd5ebe1f676e87, type: 3}
-      propertyPath: m_LinearDrag
-      value: 1.5
-      objectReference: {fileID: 0}
     - target: {fileID: 881106986913785140, guid: d6d57caaaba308a4d9dd5ebe1f676e87,
         type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 881106986913785141, guid: d6d57caaaba308a4d9dd5ebe1f676e87,
-        type: 3}
-      propertyPath: m_SortingOrder
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 881106986913785146, guid: d6d57caaaba308a4d9dd5ebe1f676e87,
         type: 3}
@@ -41402,6 +41393,11 @@ PrefabInstance:
     - target: {fileID: 881106986913785146, guid: d6d57caaaba308a4d9dd5ebe1f676e87,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7287078073601527296, guid: d6d57caaaba308a4d9dd5ebe1f676e87,
+        type: 3}
+      propertyPath: m_SpriteSortPoint
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
