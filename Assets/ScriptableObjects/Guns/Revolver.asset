@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 5
   damageRange: 5
-  speed: 5
+  speed: 500
   bulletPrefab: {fileID: 7315884780330537890, guid: 8a2abe2cd625efd42b4dde82f8b71d59,
     type: 3}
   cooldownTime: 0

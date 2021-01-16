@@ -41395,11 +41395,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7287078073601527296, guid: d6d57caaaba308a4d9dd5ebe1f676e87,
+    - target: {fileID: 881106986913785147, guid: d6d57caaaba308a4d9dd5ebe1f676e87,
         type: 3}
-      propertyPath: m_SpriteSortPoint
-      value: 0
-      objectReference: {fileID: 0}
+      propertyPath: cam
+      value: 
+      objectReference: {fileID: 519420031}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d6d57caaaba308a4d9dd5ebe1f676e87, type: 3}
 --- !u!1001 &1694341949615343481

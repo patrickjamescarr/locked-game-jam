@@ -1,90 +1,107 @@
 ﻿using Pathfinding;
 using UnityEngine;
 
-public class ZombieController : MonoBehaviour
+public class ZombieController : MonoBehaviour, IDamageable
 {
-    private StateMachine stateMachine;
+	private StateMachine stateMachine;
+	private Seeker seeker;
+	private bool newTargetCalculated = true;
 
-    public ChaseState chase;
-    public WanderState wander;
-    public AttackState attack;
-    public Rigidbody2D rb;
+	public ChaseState chase;
+	public WanderState wander;
+	public AttackState attack;
+	public Rigidbody2D rb;
+	public Mover mover;
 
-    public Mover mover;
+	[Header("Movement")]
+	public Vector3 target;
+	public float acceleration = 5f;
+	public float maxSpeed = 10f;
+	public float nextWaypointDistance = 3f;
 
-    [Header("Movement")]
-    public Vector3 target;
-    public float acceleration = 5f;
-    public float maxSpeed = 10f;
-    public float nextWaypointDistance = 3f;
+	[Header("Stats")]
+	public int health = 100;
 
-    private bool newTargetCalculated = true;
-
-    Seeker seeker;
-
-    void Start()
-    {
-		rb = GetComponent<Rigidbody2D>();
-        seeker = GetComponent<Seeker>();
-
-        mover = new Mover(nextWaypointDistance);
-
-        stateMachine = new ZombieStateMachine(this);
-        wander = new WanderState(this, stateMachine);
-        chase = new ChaseState(this, stateMachine);
-        attack = new AttackState(this, stateMachine);
-
-        stateMachine.Initialize(wander);
-    }
-
-    public void UpdatePath(Vector3 newTarget)
+	void Start()
 	{
-        newTargetCalculated = false;
-        target = newTarget;
+		rb = GetComponent<Rigidbody2D>();
+		seeker = GetComponent<Seeker>();
 
-        if (seeker.IsDone() && newTarget != null)
-            seeker.StartPath(rb.position, newTarget, OnPathComplete);
-    }
+		mover = new Mover(nextWaypointDistance);
+
+		stateMachine = new ZombieStateMachine(this);
+		wander = new WanderState(this, stateMachine);
+		chase = new ChaseState(this, stateMachine);
+		attack = new AttackState(this, stateMachine);
+
+		stateMachine.Initialize(wander);
+	}
+
+	public void UpdatePath(Vector3 newTarget)
+	{
+		newTargetCalculated = false;
+		target = newTarget;
+
+		if (seeker.IsDone() && newTarget != null)
+			seeker.StartPath(rb.position, newTarget, OnPathComplete);
+	}
 
 	private void OnPathComplete(Path p)
 	{
-        newTargetCalculated = true;
+		newTargetCalculated = true;
 
-        if (!p.error)
-        {
-            mover.SetPath(p);
-        }
+		if (!p.error)
+		{
+			mover.SetPath(p);
+		}
 	}
 
 	void Update()
-    {
-        stateMachine.CurrentState.HandleInput();
-        stateMachine.CurrentState.LogicUpdate();
+	{
+		stateMachine.CurrentState.HandleInput();
+		stateMachine.CurrentState.LogicUpdate();
 
-        if (!newTargetCalculated)
+		if (!newTargetCalculated)
 		{
-            UpdatePath(target);
+			UpdatePath(target);
 		}
-    }
+	}
 
 	private void FixedUpdate()
 	{
-        stateMachine.CurrentState.PhysicsUpdate();
-    }
+		stateMachine.CurrentState.PhysicsUpdate();
+	}
 
 	private void OnTriggerEnter2D(Collider2D other)
 	{
-        if (other.CompareTag("Player"))
+		if (other.CompareTag("Player"))
 		{
-            stateMachine.CurrentState.PlayerFound(other.gameObject);
+			stateMachine.CurrentState.PlayerFound(other.gameObject);
 		}
 	}
 
 	private void OnTriggerExit2D(Collider2D other)
 	{
-        if (other.CompareTag("Player"))
-        {
-            stateMachine.CurrentState.PlayerLost();
-        }
-    }
+		if (other.CompareTag("Player"))
+		{
+			stateMachine.CurrentState.PlayerLost();
+		}
+	}
+
+	public void TakeDamage(float damage)
+	{
+		Debug.Log($"Taking damage {damage}");
+
+		health -= (int)damage;
+
+		if (health < 0)
+			Die();
+	}
+
+	private void Die()
+	{
+		// TODO: Notify Points Scored
+
+		Destroy(this.gameObject);
+	}
 }

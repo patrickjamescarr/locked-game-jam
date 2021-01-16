@@ -98,7 +98,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  gun: {fileID: 6996516477128207420}
+  cam: {fileID: 0}
+  gunSprite: {fileID: 6996516477128207420}
+  gun: {fileID: 11400000, guid: 67108f640adb23b44b5d85e2f5ffef66, type: 2}
 --- !u!50 &404732088
 Rigidbody2D:
   serializedVersion: 4

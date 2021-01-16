@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IDamageable
 {
     public float speed = 5f;
 	public Camera cam;
-	public Transform gun;
+	public Transform gunSprite;
+	public GunSO gun;
 
 	private void Start()
 	{
@@ -18,6 +19,7 @@ public class PlayerController : MonoBehaviour
 	{
 		MovePlayer();
 		RotateGun();
+		Shoot();
 	}
 
 	private void MovePlayer()
@@ -33,15 +35,32 @@ public class PlayerController : MonoBehaviour
 	private void RotateGun()
 	{
 		Vector2 mousePosition = Input.mousePosition;
-		Vector2 gunPosition = cam.WorldToScreenPoint(gun.position);
+		Vector2 gunPosition = cam.WorldToScreenPoint(gunSprite.position);
+
+		direction = (mousePosition - gunPosition).normalized;
 
 		float angle = AngleBetweenTwoPoints(mousePosition, gunPosition);
 
-		gun.rotation = Quaternion.Euler(new Vector3(0f, 0f, angle));
+		gunSprite.rotation = Quaternion.Euler(new Vector3(0f, 0f, angle));
 	}
+
+	Vector2 direction;
 
 	private float AngleBetweenTwoPoints(Vector2 mousePosition, Vector2 gunPosition)
 	{
 		return Mathf.Atan2(mousePosition.y - gunPosition.y, mousePosition.x - gunPosition.x) * Mathf.Rad2Deg;
+	}
+
+	private void Shoot()
+	{
+		if (Input.GetMouseButtonDown(0))
+		{
+			gun.Shoot(this.transform, direction);
+		}
+	}
+
+	public void TakeDamage(float damage)
+	{
+		Debug.Log($"Player being damaged: {damage}");
 	}
 }
