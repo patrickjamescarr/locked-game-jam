@@ -2,9 +2,16 @@
 
 public class GameManager : MonoBehaviour
 {
+	private CowManager cowManager;
+
 	public GameObject pauseUI;
 
     [SerializeField] private VoidEventSO quitGameEvent = default;
+
+	public void StartGame()
+	{
+		Debug.Log("Start Game");
+	}
 
     void OnEnable()
     {

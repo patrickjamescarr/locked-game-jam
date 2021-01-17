@@ -5982,6 +5982,11 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 1694341949122786183, guid: c8d884058fbe23f49832be5fdbacd7fd,
         type: 3}
+      propertyPath: spawnOnStart
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1694341949122786183, guid: c8d884058fbe23f49832be5fdbacd7fd,
+        type: 3}
       propertyPath: entityToSpawn
       value: 
       objectReference: {fileID: 4956985306192609006, guid: 79821c8ac17fe5b4d9f52428af112e66,
@@ -6206,6 +6211,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseUI: {fileID: 535717167}
+  spawner: {fileID: 1522914758}
   quitGameEvent: {fileID: 11400000, guid: 09113290e35f8ca4184e6e55599c3732, type: 2}
 --- !u!4 &1356546610
 Transform:
@@ -6363,6 +6369,18 @@ Transform:
   m_Father: {fileID: 21777227}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1522914758 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1694341949122786183, guid: c8d884058fbe23f49832be5fdbacd7fd,
+    type: 3}
+  m_PrefabInstance: {fileID: 813331388}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 946483f2a3c12a544afbd1e4d79d974f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1583171320
 GameObject:
   m_ObjectHideFlags: 0
@@ -42472,6 +42490,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 72412b4f2ae3b5141811053c37ddcd65,
         type: 2}
+    - target: {fileID: 1694341949122786183, guid: c8d884058fbe23f49832be5fdbacd7fd,
+        type: 3}
+      propertyPath: spawnOnStart
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1694341949122786183, guid: c8d884058fbe23f49832be5fdbacd7fd,
         type: 3}
       propertyPath: entityToSpawn

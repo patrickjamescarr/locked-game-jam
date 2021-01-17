@@ -6,16 +6,27 @@ public class EnemySpawner : MonoBehaviour
     public GameObject entityToSpawn;
     public SpawnManagerSO spawnManager;
     int instanceNumber;
+    public bool spawnOnStart = true;
 
+    private GameObject[] spawnedEntities;
     public Transform target;
 
     private void Start()
 	{
-		SpawnEnemies();
+        if (spawnOnStart)
+            SpawnEnemies();
+	}
+
+    public GameObject[] Spawn()
+	{
+        SpawnEnemies();
+        return spawnedEntities;
 	}
 
 	private void SpawnEnemies()
 	{
+        spawnedEntities = new GameObject[spawnManager.numberOfPrefabsToCreate];
+
         int currentSpawnPointIndex = 0;
 
         for (int i = 0; i < spawnManager.numberOfPrefabsToCreate; i++)
@@ -39,6 +50,8 @@ public class EnemySpawner : MonoBehaviour
 			//}
 
 			instanceNumber++;
+
+            spawnedEntities[i] = currentEntity;
         }
     }
 }
