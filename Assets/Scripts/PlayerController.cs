@@ -64,8 +64,40 @@ public class PlayerController : MonoBehaviour
 
 		float angle = AngleBetweenTwoPoints(mousePosition, gunPosition);
 
+		// Some hacky stuff going on here to prevent pointing the gun at the character
+		// and restricting bullet direction based on which way the character is facing
+		if(!flipped)
+        {
+			direction.x = Mathf.Clamp(direction.x, 0f, 1.0f);
+
+			angle = Mathf.Clamp(angle, -90f, 70f);
+        }
+		else
+        {
+			direction.x = Mathf.Clamp(direction.x, -1.0f, 0f);
+			
+			if(angle < 0)
+            {
+				angle = Mathf.Clamp(angle, -180f, -90f);
+            }
+			else
+            {
+				angle = Mathf.Clamp(angle, 110f, 180f);
+			}
+		}
+
+		if (direction.x == 0f && direction.y > 0)
+		{
+			direction.y = 1.0f;
+		}
+		if (direction.x == 0f && direction.y < 0)
+		{
+			direction.y = -1.0f;
+		}
+
+
 		// flip the gun sprite on the y axis when facing left
-		gunSprite.GetComponent<SpriteRenderer>().flipY = angle < -90f || angle > 90f;
+		gunSprite.GetComponent<SpriteRenderer>().flipY = flipped;
 
 		gunSprite.rotation = Quaternion.Euler(new Vector3(0f, 0f, angle));
 	}
