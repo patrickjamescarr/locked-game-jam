@@ -36,10 +36,6 @@ public class PlayerController : MonoBehaviour
 		var mouseHorizontalPosition = cam.ScreenToWorldPoint(Input.mousePosition).x - this.transform.position.x;
 
 		spriteRenderer.flipX = mouseHorizontalPosition < 0;
-
-		Debug.Log(mouseHorizontalPosition);
-
-
 	}
 
 	private void MovePlayer()
@@ -63,6 +59,8 @@ public class PlayerController : MonoBehaviour
 
 		float angle = AngleBetweenTwoPoints(mousePosition, gunPosition);
 
+		// flip the gun sprite on the y axis when facing left
+		gunSprite.GetComponent<SpriteRenderer>().flipY = angle < -90f || angle > 90f;
 
 		gunSprite.rotation = Quaternion.Euler(new Vector3(0f, 0f, angle));
 	}
