@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
 	public float health = 100f;
 	public float speed = 5f;
 
+	private bool flipped = false;
 
 	private void Start()
 	{
@@ -35,7 +36,9 @@ public class PlayerController : MonoBehaviour
 	{
 		var mouseHorizontalPosition = cam.ScreenToWorldPoint(Input.mousePosition).x - this.transform.position.x;
 
-		spriteRenderer.flipX = mouseHorizontalPosition < 0;
+		flipped = mouseHorizontalPosition < 0;
+
+		transform.rotation = Quaternion.Euler(new Vector3(0f, flipped ? 180f : 0f, 0f));
 	}
 
 	private void MovePlayer()
@@ -46,7 +49,9 @@ public class PlayerController : MonoBehaviour
 
 		if (movement != Vector2.zero)
 		{
-			this.transform.Translate(new Vector3(movement.x * speed * Time.deltaTime, movement.y * speed * Time.deltaTime));
+			var xMovement = movement.x * speed * Time.deltaTime;
+
+			this.transform.Translate(new Vector3(flipped ? -xMovement : xMovement, movement.y * speed * Time.deltaTime));
 		}
 	}
 
