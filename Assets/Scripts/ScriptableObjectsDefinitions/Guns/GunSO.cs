@@ -54,6 +54,7 @@ public class GunSO : ScriptableObject
 			proj.transform.position = transform.position;
 			proj.transform.rotation = transform.rotation;
 			proj.gameObject.SetActive(true);
+			availableProjectiles.Remove(proj);
 			return proj;
 		}
 	}
