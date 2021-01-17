@@ -103,6 +103,8 @@ MonoBehaviour:
   gun: {fileID: 11400000, guid: 67108f640adb23b44b5d85e2f5ffef66, type: 2}
   damageTextPrefab: {fileID: 187816140549474075, guid: 8e3b777d548cb784f8783055bd29df74,
     type: 3}
+  animator: {fileID: 6077404460146894412}
+  spriteRenderer: {fileID: 881106986913785141}
   health: 100
   speed: 5
 --- !u!50 &404732088
@@ -196,7 +198,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6416777475383807796}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.25, y: -0.6, z: 0}
+  m_LocalPosition: {x: 0.228, y: -0.251, z: 0}
   m_LocalScale: {x: 30, y: 10, z: 1}
   m_Children: []
   m_Father: {fileID: 881106986913785146}
