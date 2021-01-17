@@ -81,7 +81,7 @@ public class PlayerController : MonoBehaviour
 	{
 		if (Input.GetMouseButtonDown(0))
 		{
-			gun.Shoot(this.transform, direction);
+			gun.Shoot(this.gunSprite, direction);
 		}
 	}
 
