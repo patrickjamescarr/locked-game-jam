@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour
 	public Transform gunSprite;
 	public GunSO gun;
 	public GameObject damageTextPrefab;
+	public Animator animator;
+	public SpriteRenderer spriteRenderer;
 
 	[Header("Stats")]
 	public float health = 100f;
@@ -24,13 +26,27 @@ public class PlayerController : MonoBehaviour
 	private void Update()
 	{
 		MovePlayer();
+		UpdateSprite();
 		RotateGun();
 		Shoot();
+	}
+
+	private void UpdateSprite()
+	{
+		var mouseHorizontalPosition = cam.ScreenToWorldPoint(Input.mousePosition).x - this.transform.position.x;
+
+		spriteRenderer.flipX = mouseHorizontalPosition < 0;
+
+		Debug.Log(mouseHorizontalPosition);
+
+
 	}
 
 	private void MovePlayer()
 	{
 		Vector2 movement = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")).normalized;
+
+		animator.SetFloat("Speed", Mathf.Abs(movement.magnitude * speed));
 
 		if (movement != Vector2.zero)
 		{
@@ -46,6 +62,7 @@ public class PlayerController : MonoBehaviour
 		direction = (mousePosition - gunPosition).normalized;
 
 		float angle = AngleBetweenTwoPoints(mousePosition, gunPosition);
+
 
 		gunSprite.rotation = Quaternion.Euler(new Vector3(0f, 0f, angle));
 	}
