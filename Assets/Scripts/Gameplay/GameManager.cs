@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private VoidEventSO quitGameEvent = default;
 	[SerializeField] private BoolEventSO cowCanHerd = default;
 	[SerializeField] private VoidEventSO playerDiedEvent = default;
+	[SerializeField] private VoidEventSO cowHerdingComplete = default;
 
 	private void Start()
 	{
@@ -33,6 +34,9 @@ public class GameManager : MonoBehaviour
 
 		if (playerDiedEvent != null)
 			playerDiedEvent.OnEventRaised += PlayerDied;
+
+		if (cowHerdingComplete != null)
+			cowHerdingComplete.OnEventRaised += CowHerdingComplete;
     }
 
 	private void OnDisable()
@@ -49,6 +53,9 @@ public class GameManager : MonoBehaviour
 
 		if (playerDiedEvent != null)
 			playerDiedEvent.OnEventRaised -= PlayerDied;
+
+		if (cowHerdingComplete != null)
+			cowHerdingComplete.OnEventRaised -= CowHerdingComplete;
 	}
 
 	private void Update()
@@ -86,6 +93,13 @@ public class GameManager : MonoBehaviour
 
 	private void PlayerDied()
 	{
+		DisplayPauseMenu(true);
+	}
+
+	private void CowHerdingComplete()
+	{
+		Debug.Log("COW HERDING COMPLETE");
+		Time.timeScale = 0;
 		DisplayPauseMenu(true);
 	}
 }

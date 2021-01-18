@@ -8,14 +8,20 @@ public class CowManager : MonoBehaviour
     private List<GameObject> deadCows;
     private List<GameObject> herdedCows;
 
+    [Header("Stats")]
+    public int entitiesToSpawn = 5;
+
+    [Header("Misc")]
     public EnemySpawner spawner;
 
+    [Header("Events")]
     public CowEventSO cowDied;
     public CowEventSO cowHerded;
+    public VoidEventSO cowHerdingComplete;
 
     public void StartGame()
     {
-        cows = spawner.Spawn().ToList();
+        cows = spawner.Spawn(entitiesToSpawn).ToList();
         Reset();
     }
 
@@ -49,6 +55,11 @@ public class CowManager : MonoBehaviour
         cows.Remove(cow);
 
         cow.SetActive(false);
+
+        if (cows.Count <= 0)
+		{
+            cowHerdingComplete?.RaiseEvent();
+		}
 	}
 
 	private void CowDied(GameObject cow)
