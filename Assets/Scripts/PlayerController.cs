@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+	private bool canHerdCow = false;
+	private bool flipped = false;
+
 	public Camera cam;
 	public Transform gunSprite;
 	public GunSO gun;
@@ -10,11 +13,13 @@ public class PlayerController : MonoBehaviour
 	public Animator animator;
 	public SpriteRenderer spriteRenderer;
 
+	[Header("Events")]
+	public BoolEventSO cowCanHerd;
+
 	[Header("Stats")]
 	public float health = 100f;
 	public float speed = 5f;
 
-	private bool flipped = false;
 
 	private void Start()
 	{
@@ -24,12 +29,38 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
+	private void OnEnable()
+	{
+		if (cowCanHerd != null)
+			cowCanHerd.OnEventRaised += SetCanHerdCow;
+	}
+
+	private void OnDisable()
+	{
+		if (cowCanHerd != null)
+			cowCanHerd.OnEventRaised -= SetCanHerdCow;
+	}
+
+	private void SetCanHerdCow(bool val)
+	{
+		canHerdCow = val;
+	}
+
 	private void Update()
 	{
 		MovePlayer();
 		UpdateSprite();
 		RotateGun();
 		Shoot();
+		HerdCow();
+	}
+
+	private void HerdCow()
+	{
+		if (canHerdCow && Input.GetKeyDown(KeyCode.H))
+		{
+			Debug.Log("Trying to herd cow");
+		}
 	}
 
 	private void UpdateSprite()

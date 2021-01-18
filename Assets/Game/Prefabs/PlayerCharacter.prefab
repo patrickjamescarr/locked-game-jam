@@ -105,6 +105,7 @@ MonoBehaviour:
     type: 3}
   animator: {fileID: 6077404460146894412}
   spriteRenderer: {fileID: 881106986913785141}
+  cowCanHerd: {fileID: 11400000, guid: 2ca95b44612c61f4e8ae08c5319dc43f, type: 2}
   health: 100
   speed: 5
 --- !u!50 &404732088
