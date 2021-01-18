@@ -66,7 +66,6 @@ public class CowController : MonoBehaviour, IDamageable
 	void Die()
 	{
 		cowDied?.RaiseEvent(this.gameObject);
-		Destroy(this.gameObject, 0.5f);
 	}
 
 	void Herded()

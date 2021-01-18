@@ -69,5 +69,7 @@ public class CowManager : MonoBehaviour
 	{
 		deadCows.Add(cow);
 		cows.Remove(cow);
+
+		cow.SetActive(false);
 	}
 }
