@@ -4,67 +4,70 @@ using UnityEngine;
 
 public class CowManager : MonoBehaviour
 {
-    private List<GameObject> cows;
-    private List<GameObject> deadCows;
-    private List<GameObject> herdedCows;
+	private List<GameObject> cows;
+	private List<GameObject> deadCows;
+	private List<GameObject> herdedCows;
 
-    [Header("Stats")]
-    public int entitiesToSpawn = 5;
+	[Header("Stats")]
+	public int entitiesToSpawn = 5;
 
-    [Header("Misc")]
-    public EnemySpawner spawner;
+	[Header("Misc")]
+	public EnemySpawner spawner;
 
-    [Header("Events")]
-    public CowEventSO cowDied;
-    public CowEventSO cowHerded;
-    public VoidEventSO cowHerdingComplete;
+	[Header("Events")]
+	public CowEventSO cowDied;
+	public CowEventSO cowHerded;
+	public HerdingEventSO cowHerdingComplete;
 
-    public void StartGame()
-    {
-        cows = spawner.Spawn(entitiesToSpawn).ToList();
-        Reset();
-    }
+	public void StartGame()
+	{
+		cows = spawner.Spawn(entitiesToSpawn).ToList();
+		Reset();
+	}
 
 	private void Reset()
 	{
-        deadCows = new List<GameObject>();
-        herdedCows = new List<GameObject>();
+		deadCows = new List<GameObject>();
+		herdedCows = new List<GameObject>();
 	}
 
 	private void OnEnable()
 	{
-        if (cowDied != null)
-            cowDied.OnEventRaised += CowDied;
+		if (cowDied != null)
+			cowDied.OnEventRaised += CowDied;
 
-        if (cowHerded != null)
-            cowHerded.OnEventRaised += CowHerded;
+		if (cowHerded != null)
+			cowHerded.OnEventRaised += CowHerded;
 	}
 
-    private void OnDisable()
-    {
-        if (cowDied != null)
-            cowDied.OnEventRaised -= CowDied;
-
-        if (cowHerded != null)
-            cowHerded.OnEventRaised -= CowHerded;
-    }
-
-    private void CowHerded(GameObject cow)
+	private void OnDisable()
 	{
-        herdedCows.Add(cow);
-        cows.Remove(cow);
+		if (cowDied != null)
+			cowDied.OnEventRaised -= CowDied;
 
-        cow.SetActive(false);
+		if (cowHerded != null)
+			cowHerded.OnEventRaised -= CowHerded;
+	}
 
-        if (cows.Count <= 0)
+	private void CowHerded(GameObject cow)
+	{
+		herdedCows.Add(cow);
+		cows.Remove(cow);
+
+		cow.SetActive(false);
+
+		if (cows.Count <= 0)
 		{
-            cowHerdingComplete?.RaiseEvent();
+			cowHerdingComplete?.RaiseEvent(new HerdingState()
+			{
+				cowsSaved = herdedCows.Count
+			});
 		}
 	}
 
 	private void CowDied(GameObject cow)
 	{
-        deadCows.Add(cow);
-        cows.Remove(cow);
+		deadCows.Add(cow);
+		cows.Remove(cow);
 	}
 }

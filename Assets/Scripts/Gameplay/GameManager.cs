@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
@@ -7,12 +8,14 @@ public class GameManager : MonoBehaviour
 	[Header("UI")]
 	public GameObject pauseUI;
 	public GameObject herdInstructionUI;
+	public GameObject successUI;
+	public TMP_Text cowsSavedText;
 
 	[Header("Events")]
     [SerializeField] private VoidEventSO quitGameEvent = default;
 	[SerializeField] private BoolEventSO cowCanHerd = default;
 	[SerializeField] private VoidEventSO playerDiedEvent = default;
-	[SerializeField] private VoidEventSO cowHerdingComplete = default;
+	[SerializeField] private HerdingEventSO cowHerdingComplete = default;
 
 	private void Start()
 	{
@@ -96,10 +99,10 @@ public class GameManager : MonoBehaviour
 		DisplayPauseMenu(true);
 	}
 
-	private void CowHerdingComplete()
+	private void CowHerdingComplete(HerdingState herding)
 	{
-		Debug.Log("COW HERDING COMPLETE");
 		Time.timeScale = 0;
-		DisplayPauseMenu(true);
+		cowsSavedText.text = herding.cowsSaved.ToString();
+		successUI.SetActive(true);
 	}
 }
