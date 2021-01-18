@@ -7554,6 +7554,7 @@ MonoBehaviour:
   playerDiedEvent: {fileID: 11400000, guid: 6f8826a09fb2fe4489fff2574c9c3d53, type: 2}
   cowHerdingComplete: {fileID: 11400000, guid: 360e91721d19b234eb3bbf548fb9e08a, type: 2}
   startGameEvent: {fileID: 11400000, guid: 3cb336970831fdf4694f722958c03e96, type: 2}
+  restartGameEvent: {fileID: 11400000, guid: 5ba76a3e45e225c46a5fbc6363cd0962, type: 2}
 --- !u!4 &1356546610
 Transform:
   m_ObjectHideFlags: 0
@@ -43883,6 +43884,11 @@ PrefabInstance:
       propertyPath: herdButtonUI
       value: 
       objectReference: {fileID: 1110054940}
+    - target: {fileID: 7799677623587225328, guid: 4f188cd56cf2b374b97eb04c59adc6d3,
+        type: 3}
+      propertyPath: padlockTimer
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 7799677623587225328, guid: 4f188cd56cf2b374b97eb04c59adc6d3,
         type: 3}
       propertyPath: penOpenEvent

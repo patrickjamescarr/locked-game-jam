@@ -12,7 +12,6 @@ public class PenController : MonoBehaviour
 
 	[Header("Settings")]
 	public float padlockTimer = 5f;
-	public float cowReleaseIntervan = 3f;
 
 	private float currentPadlockTime = 0f;
 	private bool playerInPen = false;

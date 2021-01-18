@@ -106,8 +106,11 @@ MonoBehaviour:
   animator: {fileID: 6077404460146894412}
   spriteRenderer: {fileID: 881106986913785141}
   cowCanHerd: {fileID: 11400000, guid: 2ca95b44612c61f4e8ae08c5319dc43f, type: 2}
+  playerDied: {fileID: 11400000, guid: 6f8826a09fb2fe4489fff2574c9c3d53, type: 2}
+  restartGameEvent: {fileID: 11400000, guid: 5ba76a3e45e225c46a5fbc6363cd0962, type: 2}
   health: 100
-  speed: 5
+  originalSpeed: 5
+  herdRange: 2
 --- !u!50 &404732088
 Rigidbody2D:
   serializedVersion: 4

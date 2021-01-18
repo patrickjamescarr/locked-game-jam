@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
 	private float speed = 5f;
 	private bool isCurrentlyHerding = false;
 	private CowController cowBeingHerded;
+	private Vector3 initialPosition;
 
 	public Camera cam;
 	public Transform gunSprite;
@@ -19,6 +20,7 @@ public class PlayerController : MonoBehaviour
 	[Header("Events")]
 	public BoolEventSO cowCanHerd;
 	public VoidEventSO playerDied;
+	public VoidEventSO restartGameEvent;
 
 	[Header("Stats")]
 	public float health = 100f;
@@ -41,18 +43,30 @@ public class PlayerController : MonoBehaviour
 		}
 
 		speed = originalSpeed;
+		initialPosition = transform.position;
 	}
 
 	private void OnEnable()
 	{
 		if (cowCanHerd != null)
 			cowCanHerd.OnEventRaised += SetCanHerdCow;
+
+		if (restartGameEvent != null)
+			restartGameEvent.OnEventRaised += RestartGame;
 	}
 
 	private void OnDisable()
 	{
 		if (cowCanHerd != null)
 			cowCanHerd.OnEventRaised -= SetCanHerdCow;
+
+		if (restartGameEvent != null)
+			restartGameEvent.OnEventRaised -= RestartGame;
+	}
+
+	private void RestartGame()
+	{
+		this.transform.position = initialPosition;
 	}
 
 	private void SetCanHerdCow(bool val)
