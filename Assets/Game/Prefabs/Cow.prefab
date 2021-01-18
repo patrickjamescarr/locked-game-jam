@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 1996257479}
   - component: {fileID: 3755153555682766300}
   - component: {fileID: 6412049541272183002}
+  - component: {fileID: -3640640551098074242}
   m_Layer: 0
   m_Name: Cow
   m_TagString: Cow
@@ -205,8 +206,44 @@ MonoBehaviour:
   cowDied: {fileID: 11400000, guid: cf81a71f36c84c9469bdebc2c97c5d39, type: 2}
   cowHerded: {fileID: 11400000, guid: 79aab164258d5e24ebc9f20c7945f77f, type: 2}
   cowCanHerd: {fileID: 11400000, guid: 2ca95b44612c61f4e8ae08c5319dc43f, type: 2}
+  acceleration: 5
+  maxSpeed: 10
+  nextWaypointDistance: 3
+  wanderRange: 3
   health: 100
   followDistance: 1
   speed: 3
   damageTextPrefab: {fileID: 187816140549474075, guid: 8e3b777d548cb784f8783055bd29df74,
     type: 3}
+  newTargetCalculated: 1
+  target: {x: 0, y: 0, z: 0}
+  rb: {fileID: 0}
+  player: {fileID: 0}
+--- !u!114 &-3640640551098074242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4956985306192609006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  drawGizmos: 1
+  detailedGizmos: 0
+  startEndModifier:
+    addPoints: 0
+    exactStartPoint: 3
+    exactEndPoint: 3
+    useRaycasting: 0
+    mask:
+      serializedVersion: 2
+      m_Bits: 4294967295
+    useGraphRaycasting: 0
+  traversableTags: -1
+  tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  graphMask:
+    value: -1
