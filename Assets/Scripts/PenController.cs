@@ -16,6 +16,12 @@ public class PenController : MonoBehaviour
 			herdButtonUI.SetActive(true);
 			isHerding = true;
 		}
+
+		if (other.CompareTag("Cow")	)
+		{
+			var cow = other.GetComponent<CowController>();
+			cow.IsInPen(true);
+		}
 	}
 
 	private void OnTriggerExit2D(Collider2D other)
@@ -24,6 +30,12 @@ public class PenController : MonoBehaviour
 		{
 			herdButtonUI.SetActive(false);
 			isHerding = false;
+		}
+
+		if (other.CompareTag("Cow"))
+		{
+			var cow = other.GetComponent<CowController>();
+			cow.IsInPen(false);
 		}
 	}
 

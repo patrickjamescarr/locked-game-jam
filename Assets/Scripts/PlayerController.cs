@@ -5,6 +5,9 @@ public class PlayerController : MonoBehaviour
 {
 	private bool canHerdCow = false;
 	private bool flipped = false;
+	private float speed = 5f;
+	private bool isCurrentlyHerding = false;
+	private CowController cowBeingHerded;
 
 	public Camera cam;
 	public Transform gunSprite;
@@ -15,11 +18,12 @@ public class PlayerController : MonoBehaviour
 
 	[Header("Events")]
 	public BoolEventSO cowCanHerd;
+	public VoidEventSO playerDied;
 
 	[Header("Stats")]
 	public float health = 100f;
-	public float speed = 5f;
-
+	public float originalSpeed = 5f;
+	public float herdRange = 2f;
 
 	private void Start()
 	{
@@ -27,6 +31,8 @@ public class PlayerController : MonoBehaviour
 		{
 			cam = Camera.main;
 		}
+
+		speed = originalSpeed;
 	}
 
 	private void OnEnable()
@@ -57,9 +63,45 @@ public class PlayerController : MonoBehaviour
 
 	private void HerdCow()
 	{
-		if (canHerdCow && Input.GetKeyDown(KeyCode.H))
+		if (Input.GetKeyDown(KeyCode.H))
 		{
-			Debug.Log("Trying to herd cow");
+			if (isCurrentlyHerding)
+			{
+				TryStopHerdingCow();
+			}
+			else
+			{
+				TryHerdCow();
+			}
+		}
+	}
+
+	private void TryStopHerdingCow()
+	{
+		cowBeingHerded.StopHerding();
+		speed = originalSpeed;
+		cowBeingHerded = null;
+		isCurrentlyHerding = false;
+	}
+
+	private void TryHerdCow()
+	{
+		if (canHerdCow)
+		{
+			Collider2D[] hits = Physics2D.OverlapCircleAll(this.transform.position, herdRange);
+
+			foreach (var collider in hits)
+			{
+				var cow = collider.GetComponent<CowController>();
+
+				if (cow != null)
+				{
+					cow.StartHerding(this, out speed);
+					cowBeingHerded = cow;
+					isCurrentlyHerding = true;
+					break;
+				}
+			}
 		}
 	}
 
@@ -142,7 +184,7 @@ public class PlayerController : MonoBehaviour
 
 	private void Shoot()
 	{
-		if (Input.GetMouseButtonDown(0))
+		if (Input.GetMouseButtonDown(0) && !isCurrentlyHerding)
 		{
 			gun.Shoot(this.gunSprite, direction);
 		}
@@ -161,7 +203,7 @@ public class PlayerController : MonoBehaviour
 
 	private void Die()
 	{
-		Debug.Log("Player died!");
+		playerDied.RaiseEvent();
 	}
 
 	private void DisplayDamageText(float damage)

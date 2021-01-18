@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 6412049541272183002}
   m_Layer: 0
   m_Name: Cow
-  m_TagString: Untagged
+  m_TagString: Cow
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -188,7 +188,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.5, y: 1.5}
+  m_Size: {x: 3, y: 3}
   m_EdgeRadius: 0
 --- !u!114 &6412049541272183002
 MonoBehaviour:
@@ -206,5 +206,7 @@ MonoBehaviour:
   cowHerded: {fileID: 11400000, guid: 79aab164258d5e24ebc9f20c7945f77f, type: 2}
   cowCanHerd: {fileID: 11400000, guid: 2ca95b44612c61f4e8ae08c5319dc43f, type: 2}
   health: 100
+  followDistance: 1
+  speed: 3
   damageTextPrefab: {fileID: 187816140549474075, guid: 8e3b777d548cb784f8783055bd29df74,
     type: 3}

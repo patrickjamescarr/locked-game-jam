@@ -5960,6 +5960,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1694341949122786183, guid: c8d884058fbe23f49832be5fdbacd7fd,
         type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1694341949122786183, guid: c8d884058fbe23f49832be5fdbacd7fd,
+        type: 3}
       propertyPath: spawnManager
       value: 
       objectReference: {fileID: 11400000, guid: c17112fbf587aa347a39d55f46aceade,
@@ -5967,7 +5972,7 @@ PrefabInstance:
     - target: {fileID: 1694341949122786183, guid: c8d884058fbe23f49832be5fdbacd7fd,
         type: 3}
       propertyPath: spawnOnStart
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1694341949122786183, guid: c8d884058fbe23f49832be5fdbacd7fd,
         type: 3}
@@ -5983,6 +5988,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1151745641}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1030715899 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1694341949122786183, guid: c8d884058fbe23f49832be5fdbacd7fd,
+    type: 3}
+  m_PrefabInstance: {fileID: 813331388}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 946483f2a3c12a544afbd1e4d79d974f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1110054940
 GameObject:
   m_ObjectHideFlags: 0
@@ -6162,6 +6179,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 881106986913785147, guid: fc11072e187288241af9ccb52feed090,
+        type: 3}
+      propertyPath: playerDied
+      value: 
+      objectReference: {fileID: 11400000, guid: 6f8826a09fb2fe4489fff2574c9c3d53,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc11072e187288241af9ccb52feed090, type: 3}
 --- !u!1 &1318407811
@@ -6250,6 +6273,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1356546610}
   - component: {fileID: 1356546609}
+  - component: {fileID: 1356546611}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -6273,6 +6297,7 @@ MonoBehaviour:
   herdInstructionUI: {fileID: 1110054940}
   quitGameEvent: {fileID: 11400000, guid: 09113290e35f8ca4184e6e55599c3732, type: 2}
   cowCanHerd: {fileID: 11400000, guid: 2ca95b44612c61f4e8ae08c5319dc43f, type: 2}
+  playerDiedEvent: {fileID: 11400000, guid: 6f8826a09fb2fe4489fff2574c9c3d53, type: 2}
 --- !u!4 &1356546610
 Transform:
   m_ObjectHideFlags: 0
@@ -6287,6 +6312,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1356546611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1356546608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99663dcd7258ae6419f3105084fb3cce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawner: {fileID: 1030715899}
+  cowDied: {fileID: 11400000, guid: cf81a71f36c84c9469bdebc2c97c5d39, type: 2}
+  cowHerded: {fileID: 11400000, guid: 79aab164258d5e24ebc9f20c7945f77f, type: 2}
 --- !u!1 &1398223322
 GameObject:
   m_ObjectHideFlags: 0
@@ -42538,11 +42578,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Pen
-      objectReference: {fileID: 0}
-    - target: {fileID: 7799677623587225328, guid: 4f188cd56cf2b374b97eb04c59adc6d3,
-        type: 3}
-      propertyPath: player
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7799677623587225328, guid: 4f188cd56cf2b374b97eb04c59adc6d3,
         type: 3}

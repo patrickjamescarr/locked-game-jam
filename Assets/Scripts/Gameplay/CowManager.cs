@@ -47,6 +47,8 @@ public class CowManager : MonoBehaviour
 	{
         herdedCows.Add(cow);
         cows.Remove(cow);
+
+        cow.SetActive(false);
 	}
 
 	private void CowDied(GameObject cow)

@@ -11,10 +11,12 @@ public class GameManager : MonoBehaviour
 	[Header("Events")]
     [SerializeField] private VoidEventSO quitGameEvent = default;
 	[SerializeField] private BoolEventSO cowCanHerd = default;
+	[SerializeField] private VoidEventSO playerDiedEvent = default;
 
-	public void StartGame()
+	private void Start()
 	{
 		cowManager = GetComponent<CowManager>();
+		cowManager.StartGame();
 	}
 
 	void OnEnable()
@@ -28,6 +30,9 @@ public class GameManager : MonoBehaviour
 		{
 			cowCanHerd.OnEventRaised += DisplayHerdInstructions;
 		}
+
+		if (playerDiedEvent != null)
+			playerDiedEvent.OnEventRaised += PlayerDied;
     }
 
 	private void OnDisable()
@@ -41,22 +46,31 @@ public class GameManager : MonoBehaviour
 		{
 			cowCanHerd.OnEventRaised -= DisplayHerdInstructions;
 		}
+
+		if (playerDiedEvent != null)
+			playerDiedEvent.OnEventRaised -= PlayerDied;
 	}
 
 	private void Update()
 	{
 		if (Input.GetKeyDown(KeyCode.Escape) && pauseUI != null)
 		{
-			bool newPause = !pauseUI.activeSelf;
-			pauseUI.SetActive(newPause);
+			bool showPause = !pauseUI.activeSelf;
+			DisplayPauseMenu(showPause);
+		}
+	}
 
-			if (newPause)
-			{
-				Time.timeScale = 0;
-			} else
-			{
-				Time.timeScale = 1;
-			}
+	private void DisplayPauseMenu(bool display)
+	{
+		pauseUI.SetActive(display);
+
+		if (display)
+		{
+			Time.timeScale = 0;
+		}
+		else
+		{
+			Time.timeScale = 1;
 		}
 	}
 
@@ -68,5 +82,10 @@ public class GameManager : MonoBehaviour
 	private void DisplayHerdInstructions(bool val)
 	{
 		herdInstructionUI.SetActive(val);
+	}
+
+	private void PlayerDied()
+	{
+		DisplayPauseMenu(true);
 	}
 }

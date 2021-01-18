@@ -155,7 +155,7 @@ GameObject:
   - component: {fileID: 7799677623587225328}
   m_Layer: 0
   m_Name: InteractArea
-  m_TagString: Untagged
+  m_TagString: Pen
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -263,3 +263,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b617d5f5946e30a4f9ae97be53ebc36b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  herdButtonUI: {fileID: 0}
+  player: {fileID: 0}
