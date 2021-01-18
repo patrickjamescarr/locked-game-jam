@@ -8,9 +8,11 @@ public class PenController : MonoBehaviour
 
 	[Header("Events")]
 	public VoidEventSO gameStartEvent;
+	public BoolEventSO penOpenEvent = default;
 
 	[Header("Settings")]
 	public float padlockTimer = 5f;
+	public float cowReleaseIntervan = 3f;
 
 	private float currentPadlockTime = 0f;
 	private bool playerInPen = false;
@@ -53,6 +55,12 @@ public class PenController : MonoBehaviour
 	{
 		if (other.CompareTag("Player"))
 		{
+			if (penOpen)
+			{
+				penOpen = false;
+				penOpenEvent?.RaiseEvent(false);
+			}
+
 			var player = other.GetComponent<PlayerController>();
 
 			if (player.IsHerdingCow)
@@ -114,9 +122,7 @@ public class PenController : MonoBehaviour
 
 	private void OpenPen()
 	{
-		Debug.Log("Padlock unlocked");
 		penOpen = true;
-
-		// Release some cows
+		penOpenEvent?.RaiseEvent(true);
 	}
 }

@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class CowManager : MonoBehaviour
 {
-	private List<GameObject> cows;
-	private List<GameObject> deadCows;
-	private List<GameObject> herdedCows;
+	private List<GameObject> cows = new List<GameObject>();
+	private List<GameObject> deadCows = new List<GameObject>();
+	private List<GameObject> herdedCows = new List<GameObject>();
+	private bool penOpen = false;
+	private float timeSinceLastEscape = 0f;
 
 	[Header("Stats")]
 	public int entitiesToSpawn = 5;
+	public float timeBetweenCowEscapes = 5f;
 
 	[Header("Misc")]
 	public EnemySpawner spawner;
@@ -18,6 +21,7 @@ public class CowManager : MonoBehaviour
 	public CowEventSO cowDied;
 	public CowEventSO cowHerded;
 	public HerdingEventSO cowHerdingComplete;
+	public BoolEventSO penOpenEvent;
 
 	public void StartGame()
 	{
@@ -38,6 +42,9 @@ public class CowManager : MonoBehaviour
 
 		if (cowHerded != null)
 			cowHerded.OnEventRaised += CowHerded;
+
+		if (penOpenEvent != null)
+			penOpenEvent.OnEventRaised += PenOpened;
 	}
 
 	private void OnDisable()
@@ -47,6 +54,38 @@ public class CowManager : MonoBehaviour
 
 		if (cowHerded != null)
 			cowHerded.OnEventRaised -= CowHerded;
+
+		if (penOpenEvent != null)
+			penOpenEvent.OnEventRaised -= PenOpened;
+	}
+
+	private void Update()
+	{
+		if (penOpen && herdedCows.Count > 0)
+		{
+			timeSinceLastEscape += Time.deltaTime;
+
+			if (timeSinceLastEscape > timeBetweenCowEscapes)
+			{
+				ReleaseCow();
+			}
+		}
+	}
+
+	private void ReleaseCow()
+	{
+		timeSinceLastEscape = 0;
+
+		var cow = herdedCows.FirstOrDefault();
+		cow.SetActive(true);
+		herdedCows.Remove(cow);
+		cows.Add(cow);
+	}
+
+	private void PenOpened(bool open)
+	{
+		penOpen = open;
+		timeSinceLastEscape = timeBetweenCowEscapes;
 	}
 
 	private void CowHerded(GameObject cow)

@@ -7581,10 +7581,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entitiesToSpawn: 5
+  timeBetweenCowEscapes: 3
   spawner: {fileID: 1030715899}
   cowDied: {fileID: 11400000, guid: cf81a71f36c84c9469bdebc2c97c5d39, type: 2}
   cowHerded: {fileID: 11400000, guid: 79aab164258d5e24ebc9f20c7945f77f, type: 2}
   cowHerdingComplete: {fileID: 11400000, guid: 360e91721d19b234eb3bbf548fb9e08a, type: 2}
+  penOpenEvent: {fileID: 11400000, guid: c83de34ec5e0e944aa54683ff59cedf2, type: 2}
 --- !u!1 &1398223322
 GameObject:
   m_ObjectHideFlags: 0
@@ -43881,5 +43883,11 @@ PrefabInstance:
       propertyPath: herdButtonUI
       value: 
       objectReference: {fileID: 1110054940}
+    - target: {fileID: 7799677623587225328, guid: 4f188cd56cf2b374b97eb04c59adc6d3,
+        type: 3}
+      propertyPath: penOpenEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: c83de34ec5e0e944aa54683ff59cedf2,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4f188cd56cf2b374b97eb04c59adc6d3, type: 3}

@@ -21,7 +21,8 @@ public class GameManager : MonoBehaviour
 	private void Start()
 	{
 		cowManager = GetComponent<CowManager>();
-		
+
+		StartGame();
 	}
 
 	private void StartGame()
