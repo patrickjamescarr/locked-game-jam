@@ -16,11 +16,19 @@ public class GameManager : MonoBehaviour
 	[SerializeField] private BoolEventSO cowCanHerd = default;
 	[SerializeField] private VoidEventSO playerDiedEvent = default;
 	[SerializeField] private HerdingEventSO cowHerdingComplete = default;
+	[SerializeField] private VoidEventSO startGameEvent = default;
 
 	private void Start()
 	{
 		cowManager = GetComponent<CowManager>();
+		
+	}
+
+	private void StartGame()
+	{
 		cowManager.StartGame();
+
+		startGameEvent?.RaiseEvent();
 	}
 
 	void OnEnable()

@@ -7553,6 +7553,7 @@ MonoBehaviour:
   cowCanHerd: {fileID: 11400000, guid: 2ca95b44612c61f4e8ae08c5319dc43f, type: 2}
   playerDiedEvent: {fileID: 11400000, guid: 6f8826a09fb2fe4489fff2574c9c3d53, type: 2}
   cowHerdingComplete: {fileID: 11400000, guid: 360e91721d19b234eb3bbf548fb9e08a, type: 2}
+  startGameEvent: {fileID: 11400000, guid: 3cb336970831fdf4694f722958c03e96, type: 2}
 --- !u!4 &1356546610
 Transform:
   m_ObjectHideFlags: 0

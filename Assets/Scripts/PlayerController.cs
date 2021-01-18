@@ -25,6 +25,14 @@ public class PlayerController : MonoBehaviour
 	public float originalSpeed = 5f;
 	public float herdRange = 2f;
 
+	public bool IsHerdingCow
+	{
+		get
+		{
+			return (cowBeingHerded != null);
+		}
+	}
+
 	private void Start()
 	{
 		if (cam == null)
