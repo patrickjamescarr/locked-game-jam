@@ -4,20 +4,29 @@ public class GameManager : MonoBehaviour
 {
 	private CowManager cowManager;
 
+	[Header("UI")]
 	public GameObject pauseUI;
+	public GameObject herdInstructionUI;
 
+	[Header("Events")]
     [SerializeField] private VoidEventSO quitGameEvent = default;
+	[SerializeField] private BoolEventSO cowCanHerd = default;
 
 	public void StartGame()
 	{
-		Debug.Log("Start Game");
+		cowManager = GetComponent<CowManager>();
 	}
 
-    void OnEnable()
-    {
-        if (quitGameEvent != null)
+	void OnEnable()
+	{
+		if (quitGameEvent != null)
 		{
-            quitGameEvent.OnEventRaised += QuitGame;
+			quitGameEvent.OnEventRaised += QuitGame;
+		}
+
+		if (cowCanHerd != null)
+		{
+			cowCanHerd.OnEventRaised += DisplayHerdInstructions;
 		}
     }
 
@@ -26,6 +35,11 @@ public class GameManager : MonoBehaviour
 		if (quitGameEvent != null)
 		{
             quitGameEvent.OnEventRaised -= QuitGame;
+		}
+
+		if (cowCanHerd != null)
+		{
+			cowCanHerd.OnEventRaised -= DisplayHerdInstructions;
 		}
 	}
 
@@ -49,5 +63,10 @@ public class GameManager : MonoBehaviour
 	private void QuitGame()
 	{
         Application.Quit();
+	}
+
+	private void DisplayHerdInstructions(bool val)
+	{
+		herdInstructionUI.SetActive(val);
 	}
 }

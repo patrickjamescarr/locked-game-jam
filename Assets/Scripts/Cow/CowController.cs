@@ -6,12 +6,15 @@ public class CowController : MonoBehaviour, IDamageable
 	[Header("Events")]
 	public CowEventSO cowDied;
 	public CowEventSO cowHerded;
+	public BoolEventSO cowCanHerd;
 
 	[Header("Stats")]
 	public float health = 100f;
 
 	[Header("Misc")]
 	public GameObject damageTextPrefab;
+
+	private bool isBeingHerded = false;
 
 	public void TakeDamage(float damage)
 	{
@@ -42,5 +45,23 @@ public class CowController : MonoBehaviour, IDamageable
 	void Herded()
 	{
 		cowHerded?.RaiseEvent(this.gameObject);
+	}
+
+	private void OnTriggerEnter2D(Collider2D other)
+	{
+		if (other.CompareTag("Player"))
+		{
+			cowCanHerd?.RaiseEvent(true);
+			isBeingHerded = true;
+		}
+	}
+
+	private void OnTriggerExit2D(Collider2D other)
+	{
+		if (other.CompareTag("Player") && isBeingHerded)
+		{
+			cowCanHerd?.RaiseEvent(false);
+			isBeingHerded = false;
+		}
 	}
 }
