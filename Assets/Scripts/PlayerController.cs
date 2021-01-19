@@ -76,11 +76,14 @@ public class PlayerController : MonoBehaviour, IDamageable
 
 	private void Update()
 	{
-		MovePlayer();
-		UpdateSprite();
-		RotateGun();
-		Shoot();
-		HerdCow();
+		if (GameSettings.inGame)
+		{
+			MovePlayer();
+			UpdateSprite();
+			RotateGun();
+			Shoot();
+			HerdCow();
+		}
 	}
 
 	private void HerdCow()

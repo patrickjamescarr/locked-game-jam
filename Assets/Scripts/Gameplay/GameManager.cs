@@ -1,6 +1,11 @@
 ﻿using TMPro;
 using UnityEngine;
 
+public static class GameSettings
+{
+	public static bool inGame = false;
+}
+
 public class GameManager : MonoBehaviour
 {
 	private CowManager cowManager;
@@ -39,6 +44,8 @@ public class GameManager : MonoBehaviour
 		cowManager.StartGame();
 		Time.timeScale = 1;
 		startGameEvent?.RaiseEvent();
+
+		GameSettings.inGame = true;
 	}
 
 	void OnEnable()
@@ -129,10 +136,12 @@ public class GameManager : MonoBehaviour
 		if (display)
 		{
 			Time.timeScale = 0;
+			GameSettings.inGame = false;
 		}
 		else
 		{
 			Time.timeScale = 1;
+			GameSettings.inGame = true;
 		}
 	}
 
@@ -149,11 +158,13 @@ public class GameManager : MonoBehaviour
 	private void PlayerDied()
 	{
 		DisplayPauseMenu(true);
+		GameSettings.inGame = false;
 	}
 
 	private void CowHerdingComplete(HerdingState herding)
 	{
 		Time.timeScale = 0;
+		GameSettings.inGame = false;
 		cowsSavedText.text = herding.cowsSaved.ToString();
 		successUI.SetActive(true);
 	}
