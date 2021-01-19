@@ -1,7 +1,7 @@
 ﻿using TMPro;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour, IDamageable
+public class PlayerController : MonoBehaviour, IDamageable, ICanPickUp
 {
 	private bool canHerdCow = false;
 	private bool flipped = false;
@@ -241,5 +241,13 @@ public class PlayerController : MonoBehaviour, IDamageable
 
 		if (textMesh != null)
 			textMesh.SetText(((int)damage).ToString());
+	}
+
+	public void PickUp(PickUpSO item)
+	{
+		if (item != null)
+		{
+			gun.AddAmmo(item.count);
+		}
 	}
 }

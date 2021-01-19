@@ -45,6 +45,12 @@ public class GunSO : ScriptableObject
 		ammoChangedEventChannel?.RaiseEvent(ammo);
 	}
 
+	public void AddAmmo(int count)
+	{
+		ammo.heldBullets += count;
+		ammoChangedEventChannel?.RaiseEvent(ammo);
+	}
+
 	public void Shoot(Transform transform, Vector2 direction)
 	{
 		if (ammo.currentBulletsInClip > 0)
