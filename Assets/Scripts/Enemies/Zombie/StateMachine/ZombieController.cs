@@ -126,22 +126,22 @@ public class ZombieController : MonoBehaviour, IDamageable
 		}
 	}
 
-	private void DealPlayerDamage(PlayerController player)
+	private void DealPlayerDamage(IDamageable damageable)
 	{
-		player.TakeDamage(attack);
+		damageable.TakeDamage(attack);
 		timeSinceDamage = 0f;
 	}
 
 	private void OnTriggerStay2D(Collider2D other)
 	{
-		if (other.gameObject.CompareTag("Player"))
+		if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Cow"))
 		{
 			timeSinceDamage += Time.deltaTime;
 
 			if (timeSinceDamage >= waitBetweenAttacks)
 			{
-				var playerController = other.gameObject.GetComponent<PlayerController>();
-				DealPlayerDamage(playerController);
+				var damageable = other.gameObject.GetComponent<IDamageable>();
+				DealPlayerDamage(damageable);
 			}
 		}
 	}

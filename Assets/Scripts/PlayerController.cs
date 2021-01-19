@@ -1,7 +1,7 @@
 ﻿using TMPro;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IDamageable
 {
 	private bool canHerdCow = false;
 	private bool flipped = false;
