@@ -4,6 +4,8 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
 	private CowManager cowManager;
+	private bool isMuted = true;
+	private float initialVolume = 30f;
 
 	[Header("UI")]
 	public GameObject pauseUI;
@@ -24,6 +26,9 @@ public class GameManager : MonoBehaviour
 	private void Start()
 	{
 		cowManager = GetComponent<CowManager>();
+
+		initialVolume = AudioListener.volume;
+		AudioListener.volume = 0;
 
 		StartGame();
 	}
@@ -86,6 +91,20 @@ public class GameManager : MonoBehaviour
 			DisplayPauseMenu(showPause);
 		}
 	}
+
+	public void MuteGame()
+	{
+		isMuted = !isMuted;
+		
+		if (isMuted)
+		{
+			AudioListener.volume = 0;
+		} else
+		{
+			AudioListener.volume = initialVolume;
+		}
+	}
+
 	private void RestartGame()
 	{
 		StartGame();
