@@ -8,6 +8,8 @@ public class ZombieController : MonoBehaviour, IDamageable
 	private Seeker seeker;
 	private bool newTargetCalculated = true;
 	private float timeSinceDamage = 0f;
+	private Animator animator;
+	private SpriteRenderer spriteRenderer;
 
 	public ChaseState chase;
 	public WanderState wander;
@@ -30,10 +32,15 @@ public class ZombieController : MonoBehaviour, IDamageable
 	[Header("Misc")]
 	public GameObject damageTextPrefab;
 
+	private int attackTriggerCount = 0;
+
+
 	void Start()
 	{
 		rb = GetComponent<Rigidbody2D>();
 		seeker = GetComponent<Seeker>();
+		animator = GetComponentInChildren<Animator>();
+		spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 
 		mover = new Mover(nextWaypointDistance);
 
@@ -65,17 +72,26 @@ public class ZombieController : MonoBehaviour, IDamageable
 	}
 
 	void Update()
-	{
-		stateMachine.CurrentState.HandleInput();
-		stateMachine.CurrentState.LogicUpdate();
+    {
+        UpdateGraphics();
 
-		if (!newTargetCalculated)
-		{
-			UpdatePath(target);
-		}
-	}
+        stateMachine.CurrentState.HandleInput();
+        stateMachine.CurrentState.LogicUpdate();
 
-	private void FixedUpdate()
+        if (!newTargetCalculated)
+        {
+            UpdatePath(target);
+        }
+    }
+
+    private void UpdateGraphics()
+    {
+        animator.SetFloat("Speed", rb.velocity.magnitude);
+		spriteRenderer.flipX = rb.velocity.x < 0;
+		animator.SetBool("Attacking", attackTriggerCount > 0);
+    }
+
+    private void FixedUpdate()
 	{
 		stateMachine.CurrentState.PhysicsUpdate();
 	}
@@ -124,9 +140,22 @@ public class ZombieController : MonoBehaviour, IDamageable
 			var playerController = other.gameObject.GetComponent<PlayerController>();
 			DealPlayerDamage(playerController);
 		}
+
+		if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Cow"))
+		{
+			attackTriggerCount++;
+		}
 	}
 
-	private void DealPlayerDamage(IDamageable damageable)
+	private void OnTriggerExit2D(Collider2D collision)
+	{
+		if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Cow"))
+		{
+			attackTriggerCount--;
+		}
+	}
+
+    private void DealPlayerDamage(IDamageable damageable)
 	{
 		damageable.TakeDamage(attack);
 		timeSinceDamage = 0f;
