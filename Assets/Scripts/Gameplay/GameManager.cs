@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
 	public GameObject successUI;
 	public TMP_Text cowsSavedText;
 	public GameObject padlockWarningUI;
+	public GameObject playerDiedUI;
 
 	[Header("Events")]
     [SerializeField] private VoidEventSO quitGameEvent = default;
@@ -94,8 +95,7 @@ public class GameManager : MonoBehaviour
 	{
 		if (Input.GetKeyDown(KeyCode.Escape) && pauseUI != null)
 		{
-			bool showPause = !pauseUI.activeSelf;
-			DisplayPauseMenu(showPause);
+			DisplayCanvas(pauseUI, !pauseUI.activeSelf);
 		}
 	}
 
@@ -127,11 +127,12 @@ public class GameManager : MonoBehaviour
 	{
 		pauseUI.SetActive(false);
 		successUI.SetActive(false);
+		playerDiedUI.SetActive(false);
 	}
 
-	private void DisplayPauseMenu(bool display)
+	private void DisplayCanvas(GameObject ui, bool display)
 	{
-		pauseUI.SetActive(display);
+		ui.SetActive(display);
 
 		if (display)
 		{
@@ -157,7 +158,7 @@ public class GameManager : MonoBehaviour
 
 	private void PlayerDied()
 	{
-		DisplayPauseMenu(true);
+		DisplayCanvas(playerDiedUI, true);
 		GameSettings.inGame = false;
 	}
 

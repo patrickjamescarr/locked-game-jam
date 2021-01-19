@@ -15,24 +15,26 @@ public class CowManager : MonoBehaviour
 	public float timeBetweenCowEscapes = 5f;
 
 	[Header("Misc")]
-	public EnemySpawner spawner;
+	public CowSpawner spawner;
 
 	[Header("Events")]
 	public CowEventSO cowDied;
 	public CowEventSO cowHerded;
 	public HerdingEventSO cowHerdingComplete;
 	public BoolEventSO penOpenEvent;
+	public VoidEventSO restartGameEvent = default;
 
 	public void StartGame()
 	{
 		cows = spawner.Spawn(entitiesToSpawn).ToList();
-		Reset();
 	}
 
 	private void Reset()
 	{
 		deadCows = new List<GameObject>();
 		herdedCows = new List<GameObject>();
+		spawner.Reset();
+		StartGame();
 	}
 
 	private void OnEnable()
@@ -45,6 +47,9 @@ public class CowManager : MonoBehaviour
 
 		if (penOpenEvent != null)
 			penOpenEvent.OnEventRaised += PenOpened;
+
+		if (restartGameEvent != null)
+			restartGameEvent.OnEventRaised += Reset;
 	}
 
 	private void OnDisable()
@@ -57,6 +62,9 @@ public class CowManager : MonoBehaviour
 
 		if (penOpenEvent != null)
 			penOpenEvent.OnEventRaised -= PenOpened;
+
+		if (restartGameEvent != null)
+			restartGameEvent.OnEventRaised += Reset;
 	}
 
 	private void Update()

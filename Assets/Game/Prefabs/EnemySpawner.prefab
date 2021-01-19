@@ -43,3 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 946483f2a3c12a544afbd1e4d79d974f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  entityToSpawn: {fileID: 0}
+  spawnManager: {fileID: 0}
+  spawnOnStart: 1
+  restartGameEvent: {fileID: 0}
