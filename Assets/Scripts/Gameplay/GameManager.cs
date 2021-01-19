@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
 	public GameObject herdInstructionUI;
 	public GameObject successUI;
 	public TMP_Text cowsSavedText;
+	public GameObject padlockWarningUI;
 
 	[Header("Events")]
     [SerializeField] private VoidEventSO quitGameEvent = default;
@@ -18,6 +19,7 @@ public class GameManager : MonoBehaviour
 	[SerializeField] private HerdingEventSO cowHerdingComplete = default;
 	[SerializeField] private VoidEventSO startGameEvent = default;
 	[SerializeField] private VoidEventSO restartGameEvent = default;
+	[SerializeField] private BoolEventSO penOpenEvent = default;
 
 	private void Start()
 	{
@@ -50,6 +52,9 @@ public class GameManager : MonoBehaviour
 
 		if (restartGameEvent != null)
 			restartGameEvent.OnEventRaised += RestartGame;
+
+		if (penOpenEvent != null)
+			penOpenEvent.OnEventRaised += DisplayPadlockWarning;
     }
 
 	private void OnDisable()
@@ -68,6 +73,9 @@ public class GameManager : MonoBehaviour
 
 		if (restartGameEvent != null)
 			restartGameEvent.OnEventRaised -= RestartGame;
+
+		if (penOpenEvent != null)
+			penOpenEvent.OnEventRaised -= DisplayPadlockWarning;
 	}
 
 	private void Update()
@@ -81,6 +89,12 @@ public class GameManager : MonoBehaviour
 	private void RestartGame()
 	{
 		StartGame();
+	}
+
+	private void DisplayPadlockWarning(bool isOpen)
+	{
+		if (padlockWarningUI != null)
+			padlockWarningUI.SetActive(isOpen);
 	}
 
 	private void ClearAllUI()
