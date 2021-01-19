@@ -111,6 +111,10 @@ MonoBehaviour:
   health: 100
   originalSpeed: 5
   herdRange: 2
+  startingAmmo:
+    clipSize: 6
+    currentBulletsInClip: 6
+    heldBullets: 12
 --- !u!50 &404732088
 Rigidbody2D:
   serializedVersion: 4

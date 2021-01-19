@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 	public float health = 100f;
 	public float originalSpeed = 5f;
 	public float herdRange = 2f;
+	public AmmoInfo startingAmmo;
 
 	public bool IsHerdingCow
 	{
@@ -44,6 +45,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 
 		speed = originalSpeed;
 		initialPosition = transform.position;
+		gun.SetAmmo(startingAmmo);
 	}
 
 	private void OnEnable()
@@ -67,6 +69,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 	private void RestartGame()
 	{
 		this.transform.position = initialPosition;
+		gun.SetAmmo(startingAmmo);
 	}
 
 	private void SetCanHerdCow(bool val)

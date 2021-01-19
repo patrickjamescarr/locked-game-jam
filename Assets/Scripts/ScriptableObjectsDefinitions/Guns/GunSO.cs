@@ -29,16 +29,52 @@ public class GunSO : ScriptableObject
 	[Range(0, 100)]
 	public int bulletCount;
 
+	private AmmoInfo ammo;
+	public AmmoEventSO ammoChangedEventChannel;
+
 	private void Awake()
 	{
 		availableProjectiles = new List<Projectile>();
 		availableProjectiles.Clear();
+		ammoChangedEventChannel?.RaiseEvent(ammo);
+	}
+
+	public void SetAmmo(AmmoInfo ammo)
+	{
+		this.ammo = ammo;
+		ammoChangedEventChannel?.RaiseEvent(ammo);
 	}
 
 	public void Shoot(Transform transform, Vector2 direction)
 	{
-		var bullet = GetProjectile(transform);
-		bullet.Shoot(direction, speed, damageRange, damage, DeactivateProjectile);	
+		if (ammo.currentBulletsInClip > 0)
+		{
+			var bullet = GetProjectile(transform);
+			bullet.Shoot(direction, speed, damageRange, damage, DeactivateProjectile);
+			ammo.currentBulletsInClip--;
+			ammoChangedEventChannel?.RaiseEvent(ammo);
+		} else
+		{
+			Reload();
+		}
+	}
+
+	public void Reload()
+	{
+		int bulletsToLoad = 0;
+
+		if (ammo.heldBullets >= ammo.clipSize - ammo.currentBulletsInClip)
+		{
+			bulletsToLoad = ammo.clipSize - ammo.currentBulletsInClip;
+		} else
+		{
+			bulletsToLoad = ammo.heldBullets;
+		}
+
+		ammo.currentBulletsInClip += bulletsToLoad;
+		ammo.heldBullets -= bulletsToLoad;
+
+		ammoChangedEventChannel?.RaiseEvent(ammo);
 	}
 
 	private Projectile GetProjectile(Transform transform)

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Revolver
   m_EditorClassIdentifier: 
   gunName: 
-  damage: 50
+  damage: 100
   damageRange: 5
   speed: 20
   bulletPrefab: {fileID: 7315884780330537890, guid: 8a2abe2cd625efd42b4dde82f8b71d59,
@@ -21,3 +21,9 @@ MonoBehaviour:
   cooldownTime: 0
   reloadTime: 0
   bulletCount: 5
+  ammo:
+    clipSize: 6
+    currentBulletsInClip: 4
+    heldBullets: 12
+  ammoChangedEventChannel: {fileID: 11400000, guid: 64f3265384a7b26409f02301d8b90a60,
+    type: 2}

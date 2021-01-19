@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
 	public TMP_Text cowsSavedText;
 	public GameObject padlockWarningUI;
 	public GameObject playerDiedUI;
+	public TMP_Text ammoInfoText;
 
 	[Header("Events")]
     [SerializeField] private VoidEventSO quitGameEvent = default;
@@ -28,6 +29,7 @@ public class GameManager : MonoBehaviour
 	[SerializeField] private VoidEventSO startGameEvent = default;
 	[SerializeField] private VoidEventSO restartGameEvent = default;
 	[SerializeField] private BoolEventSO penOpenEvent = default;
+	[SerializeField] private AmmoEventSO ammoChangedEventChannel = default;
 
 	private void Start()
 	{
@@ -68,7 +70,11 @@ public class GameManager : MonoBehaviour
 
 		if (penOpenEvent != null)
 			penOpenEvent.OnEventRaised += DisplayPadlockWarning;
-    }
+
+		if (ammoChangedEventChannel != null)
+			ammoChangedEventChannel.OnEventRaised += AmmoChanged;
+
+	}
 
 	private void OnDisable()
 	{
@@ -89,6 +95,9 @@ public class GameManager : MonoBehaviour
 
 		if (penOpenEvent != null)
 			penOpenEvent.OnEventRaised -= DisplayPadlockWarning;
+
+		if (ammoChangedEventChannel != null)
+			ammoChangedEventChannel.OnEventRaised -= AmmoChanged;
 	}
 
 	private void Update()
@@ -168,5 +177,11 @@ public class GameManager : MonoBehaviour
 		GameSettings.inGame = false;
 		cowsSavedText.text = herding.cowsSaved.ToString();
 		successUI.SetActive(true);
+	}
+
+	private void AmmoChanged(AmmoInfo ammo)
+	{
+		if (ammoInfoText != null)
+			ammoInfoText.text = $"{ammo.currentBulletsInClip} / {ammo.clipSize}  [{ammo.heldBullets}]";
 	}
 }
