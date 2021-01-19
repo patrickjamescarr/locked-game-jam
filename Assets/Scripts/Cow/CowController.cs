@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using Pathfinding;
+using TMPro;
 using UnityEngine;
 
 public class CowController : MonoBehaviour, IDamageable
@@ -8,6 +9,12 @@ public class CowController : MonoBehaviour, IDamageable
 	public CowEventSO cowHerded;
 	public BoolEventSO cowCanHerd;
 
+	[Header("Movement")]
+	public float acceleration = 5f;
+	public float maxSpeed = 10f;
+	public float nextWaypointDistance = 3f;
+	public int wanderRange = 3;
+
 	[Header("Stats")]
 	public float health = 100f;
 	public float followDistance = 2f;
@@ -16,9 +23,35 @@ public class CowController : MonoBehaviour, IDamageable
 	[Header("Misc")]
 	public GameObject damageTextPrefab;
 
-	private bool isBeingHerded = false;
-	private PlayerController player;
+	private StateMachine stateMachine;
+	private Seeker seeker;
+	public bool newTargetCalculated = true;
+
+	public Vector3 target;
+	public Rigidbody2D rb;
+	public Mover mover;
+
+	public PlayerController player;
 	private bool isInPen = false;
+
+	public CowWanderState wander;
+	public CowFollowState herding;
+
+
+	private void Start()
+	{
+		rb = GetComponent<Rigidbody2D>();
+		seeker = GetComponent<Seeker>();
+
+		mover = new Mover(nextWaypointDistance);
+
+		stateMachine = new CowStateMachine();
+
+		wander = new CowWanderState(this, stateMachine);
+		herding = new CowFollowState(this, stateMachine);
+
+		stateMachine.Initialize(wander);
+	}
 
 	public void TakeDamage(float damage)
 	{
@@ -35,7 +68,8 @@ public class CowController : MonoBehaviour, IDamageable
 	{
 		herdSpeed = speed;
 		this.player = player;
-		isBeingHerded = true;
+
+		stateMachine.ChangeState(herding);
 	}
 
 	public void IsInPen(bool value)
@@ -51,7 +85,7 @@ public class CowController : MonoBehaviour, IDamageable
 		}
 
 		this.player = null;
-		isBeingHerded = false;
+		stateMachine.ChangeState(wander);
 	}
 
 	private void DisplayDamageText(float damage)
@@ -63,10 +97,18 @@ public class CowController : MonoBehaviour, IDamageable
 			textMesh.SetText(((int)damage).ToString());
 	}
 
+	public void UpdatePath(Vector3 newTarget)
+	{
+		newTargetCalculated = false;
+		target = newTarget;
+
+		if (seeker.IsDone() && newTarget != null)
+			seeker.StartPath(rb.position, newTarget, OnPathComplete);
+	}
+
 	void Die()
 	{
 		cowDied?.RaiseEvent(this.gameObject);
-		Destroy(this.gameObject, 0.5f);
 	}
 
 	void Herded()
@@ -74,44 +116,42 @@ public class CowController : MonoBehaviour, IDamageable
 		cowHerded?.RaiseEvent(this.gameObject);
 	}
 
+	private void OnPathComplete(Path p)
+	{
+		newTargetCalculated = true;
+
+		if (!p.error)
+		{
+			mover.SetPath(p);
+		}
+	}
+
 	private void OnTriggerEnter2D(Collider2D other)
 	{
 		if (other.CompareTag("Player"))
 		{
 			cowCanHerd?.RaiseEvent(true);
-			isBeingHerded = true;
 		}
 	}
 
 	private void OnTriggerExit2D(Collider2D other)
 	{
-		if (other.CompareTag("Player") && isBeingHerded)
+		if (other.CompareTag("Player") && stateMachine.CurrentState == herding)
 		{
 			cowCanHerd?.RaiseEvent(false);
-			isBeingHerded = false;
 		}
 	}
 
 	private void Update()
 	{
-		if (isBeingHerded && player != null)
-		{
-			float distance = Vector3.Distance(this.transform.position, player.transform.position);
+		stateMachine.CurrentState.LogicUpdate();
 
-			if (distance >= followDistance)
-			{
-				FollowPlayer();
-			}
-		}
+		if (!newTargetCalculated)
+			UpdatePath(target);
 	}
 
-	private void FollowPlayer()
+	private void FixedUpdate()
 	{
-		Vector2 movement = (player.transform.position - this.transform.position).normalized;
-
-		if (movement != Vector2.zero)
-		{
-			this.transform.Translate(new Vector3(movement.x * speed * Time.deltaTime, movement.y * speed * Time.deltaTime));
-		}
+		stateMachine.CurrentState.PhysicsUpdate();
 	}
 }

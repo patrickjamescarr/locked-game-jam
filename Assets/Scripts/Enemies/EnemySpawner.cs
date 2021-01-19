@@ -1,5 +1,4 @@
-﻿using Pathfinding;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -11,12 +10,46 @@ public class EnemySpawner : MonoBehaviour
 	public SpawnManagerSO spawnManager;
 	public bool spawnOnStart = true;
 
+	[Header("Events")]
+	public VoidEventSO restartGameEvent = default;
+
 	private void Start()
+	{
+		StartSpawning();
+	}
+
+	private void StartSpawning()
 	{
 		totalToSpawn = spawnManager.numberOfPrefabsToCreate;
 
 		if (spawnOnStart)
 			SpawnEnemies();
+	}
+
+	private void OnEnable()
+	{
+		if (restartGameEvent != null)
+			restartGameEvent.OnEventRaised += Reset;
+	}
+
+	private void OnDisable()
+	{
+		if (restartGameEvent != null)
+			restartGameEvent.OnEventRaised -= Reset;
+	}
+
+	public void Reset()
+	{
+		ClearEntities();
+		StartSpawning();
+	}
+
+	public void ClearEntities()
+	{
+		foreach (var entity in spawnedEntities)
+		{
+			Destroy(entity);
+		}
 	}
 
 	public GameObject[] Spawn(int numberToSpawn = -1)

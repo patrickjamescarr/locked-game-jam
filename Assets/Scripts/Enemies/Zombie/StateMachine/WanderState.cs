@@ -28,18 +28,21 @@ public class WanderState : ZombieState {
 	{
 		Collider2D[] result = Physics2D.OverlapCircleAll(controller.transform.position, controller.detectionDistance);
 
+		GameObject cowFound = null;
+
 		foreach(var collider in result)
 		{
 			if (collider.CompareTag("Player"))
 			{
 				PlayerFound(collider.gameObject);
+				return;
+			} else if (collider.CompareTag("Cow"))
+			{
+				cowFound = collider.gameObject;
 			}
 		}
-	}
 
-	public override void PlayerFound(GameObject player)
-	{
-		controller.chase.target = player.transform;
-		stateMachine.ChangeState(controller.chase);
+		if (cowFound != null)
+			PlayerFound(cowFound);
 	}
 }

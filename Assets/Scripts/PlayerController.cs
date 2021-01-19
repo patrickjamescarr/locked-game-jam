@@ -1,13 +1,14 @@
 ﻿using TMPro;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IDamageable
 {
 	private bool canHerdCow = false;
 	private bool flipped = false;
 	private float speed = 5f;
 	private bool isCurrentlyHerding = false;
 	private CowController cowBeingHerded;
+	private Vector3 initialPosition;
 
 	public Camera cam;
 	public Transform gunSprite;
@@ -19,11 +20,21 @@ public class PlayerController : MonoBehaviour
 	[Header("Events")]
 	public BoolEventSO cowCanHerd;
 	public VoidEventSO playerDied;
+	public VoidEventSO restartGameEvent;
 
 	[Header("Stats")]
 	public float health = 100f;
 	public float originalSpeed = 5f;
 	public float herdRange = 2f;
+	public AmmoInfo startingAmmo;
+
+	public bool IsHerdingCow
+	{
+		get
+		{
+			return (cowBeingHerded != null);
+		}
+	}
 
 	private void Start()
 	{
@@ -33,18 +44,32 @@ public class PlayerController : MonoBehaviour
 		}
 
 		speed = originalSpeed;
+		initialPosition = transform.position;
+		gun.SetAmmo(startingAmmo);
 	}
 
 	private void OnEnable()
 	{
 		if (cowCanHerd != null)
 			cowCanHerd.OnEventRaised += SetCanHerdCow;
+
+		if (restartGameEvent != null)
+			restartGameEvent.OnEventRaised += RestartGame;
 	}
 
 	private void OnDisable()
 	{
 		if (cowCanHerd != null)
 			cowCanHerd.OnEventRaised -= SetCanHerdCow;
+
+		if (restartGameEvent != null)
+			restartGameEvent.OnEventRaised -= RestartGame;
+	}
+
+	private void RestartGame()
+	{
+		this.transform.position = initialPosition;
+		gun.SetAmmo(startingAmmo);
 	}
 
 	private void SetCanHerdCow(bool val)
@@ -54,11 +79,14 @@ public class PlayerController : MonoBehaviour
 
 	private void Update()
 	{
-		MovePlayer();
-		UpdateSprite();
-		RotateGun();
-		Shoot();
-		HerdCow();
+		if (GameSettings.inGame)
+		{
+			MovePlayer();
+			UpdateSprite();
+			RotateGun();
+			Shoot();
+			HerdCow();
+		}
 	}
 
 	private void HerdCow()
