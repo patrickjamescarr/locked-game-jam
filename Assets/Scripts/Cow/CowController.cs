@@ -8,7 +8,6 @@ public class CowController : MonoBehaviour, IDamageable
 	public CowEventSO cowDied;
 	public CowEventSO cowHerded;
 	public BoolEventSO cowCanHerd;
-	public VoidEventSO gameResetEvent;
 
 	[Header("Movement")]
 	public float acceleration = 5f;
@@ -38,23 +37,6 @@ public class CowController : MonoBehaviour, IDamageable
 
 	public CowWanderState wander;
 	public CowFollowState herding;
-
-	private void OnEnable()
-	{
-		if (gameResetEvent != null)
-			gameResetEvent.OnEventRaised += ResetGame;
-	}
-
-	private void OnDisable()
-	{
-		if (gameResetEvent != null)
-			gameResetEvent.OnEventRaised -= ResetGame;
-	}
-
-	private void ResetGame()
-	{
-		// Destroy(this.gameObject);
-	}
 
 	private void Start()
 	{
@@ -156,7 +138,7 @@ public class CowController : MonoBehaviour, IDamageable
 
 	private void OnTriggerExit2D(Collider2D other)
 	{
-		if (other.CompareTag("Player") && stateMachine.CurrentState == herding)
+		if (other.CompareTag("Player"))
 		{
 			cowCanHerd?.RaiseEvent(false);
 		}
