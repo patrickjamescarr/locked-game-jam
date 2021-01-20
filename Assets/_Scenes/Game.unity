@@ -8505,6 +8505,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1156066357}
   m_CullTransparentMesh: 0
+--- !u!1 &1171933333
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1171933334}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1171933334
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1171933333}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 45, y: 18, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1188248053
 GameObject:
   m_ObjectHideFlags: 0
@@ -8974,6 +9004,7 @@ MonoBehaviour:
   cowHerdingChanged: {fileID: 11400000, guid: 9e8fbde4ecbc8514b812110443fa175f, type: 2}
   penOpenEvent: {fileID: 11400000, guid: c83de34ec5e0e944aa54683ff59cedf2, type: 2}
   restartGameEvent: {fileID: 11400000, guid: 5ba76a3e45e225c46a5fbc6363cd0962, type: 2}
+  waveIncreaseEvent: {fileID: 11400000, guid: 625d8b59afef6c54e8aed50d4ca54565, type: 2}
 --- !u!114 &1356546612
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46513,11 +46544,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemySpawner
       objectReference: {fileID: 0}
-    - target: {fileID: 1694341949122786180, guid: c8d884058fbe23f49832be5fdbacd7fd,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1694341949122786182, guid: c8d884058fbe23f49832be5fdbacd7fd,
         type: 3}
       propertyPath: m_RootOrder
@@ -46573,34 +46599,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1694341949122786183, guid: c8d884058fbe23f49832be5fdbacd7fd,
-        type: 3}
-      propertyPath: target
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1694341949122786183, guid: c8d884058fbe23f49832be5fdbacd7fd,
-        type: 3}
-      propertyPath: spawnManager
-      value: 
-      objectReference: {fileID: 11400000, guid: 72412b4f2ae3b5141811053c37ddcd65,
-        type: 2}
-    - target: {fileID: 1694341949122786183, guid: c8d884058fbe23f49832be5fdbacd7fd,
-        type: 3}
-      propertyPath: spawnOnStart
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1694341949122786183, guid: c8d884058fbe23f49832be5fdbacd7fd,
-        type: 3}
-      propertyPath: entityToSpawn
-      value: 
-      objectReference: {fileID: 2933998284111068903, guid: 0b7ffcb4897779645a26e556c30d8131,
-        type: 3}
-    - target: {fileID: 1694341949122786183, guid: c8d884058fbe23f49832be5fdbacd7fd,
-        type: 3}
-      propertyPath: restartGameEvent
-      value: 
-      objectReference: {fileID: 11400000, guid: 5ba76a3e45e225c46a5fbc6363cd0962,
-        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c8d884058fbe23f49832be5fdbacd7fd, type: 3}
 --- !u!1001 &3943408920405279513

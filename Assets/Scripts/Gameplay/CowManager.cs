@@ -9,10 +9,12 @@ public class CowManager : MonoBehaviour
 	private List<GameObject> herdedCows = new List<GameObject>();
 	private bool penOpen = false;
 	private float timeSinceLastEscape = 0f;
+	private int currentWave = 0;
 
 	[Header("Stats")]
 	public int entitiesToSpawn = 5;
 	public float timeBetweenCowEscapes = 5f;
+	private int waveIncreaseEvery = 2;
 
 	[Header("Misc")]
 	public CowSpawner spawner;
@@ -24,6 +26,7 @@ public class CowManager : MonoBehaviour
 	public HerdingEventSO cowHerdingChanged;
 	public BoolEventSO penOpenEvent;
 	public VoidEventSO restartGameEvent = default;
+	public IntEventSO waveIncreaseEvent = default;
 
 	public void StartGame()
 	{
@@ -50,6 +53,7 @@ public class CowManager : MonoBehaviour
 		cows = new List<GameObject>();
 		deadCows = new List<GameObject>();
 		herdedCows = new List<GameObject>();
+		currentWave = 0;
 
 		StartGame();
 	}
@@ -141,6 +145,16 @@ public class CowManager : MonoBehaviour
 
 	private void UpdateCowHerding()
 	{
+		int wave = entitiesToSpawn - cows.Count;
+		wave = wave / waveIncreaseEvery;
+
+		Debug.Log($"Current Wave is {wave}");
+		if (wave > currentWave)
+		{
+			waveIncreaseEvent?.RaiseEvent(wave);
+		}
+
+
 		cowHerdingChanged?.RaiseEvent(new HerdingState()
 		{
 			looseCows = cows.Count
