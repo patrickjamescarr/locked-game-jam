@@ -8529,7 +8529,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1171933333}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 45, y: 18, z: 0}
+  m_LocalPosition: {x: 51, y: 23, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -8995,8 +8995,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99663dcd7258ae6419f3105084fb3cce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entitiesToSpawn: 5
-  timeBetweenCowEscapes: 3
+  entitiesToSpawn: 10
+  timeBetweenCowEscapes: 2
   spawner: {fileID: 1631004596}
   cowDied: {fileID: 11400000, guid: cf81a71f36c84c9469bdebc2c97c5d39, type: 2}
   cowHerded: {fileID: 11400000, guid: 79aab164258d5e24ebc9f20c7945f77f, type: 2}
@@ -46599,6 +46599,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1694341949122786183, guid: c8d884058fbe23f49832be5fdbacd7fd,
+        type: 3}
+      propertyPath: timeBetweenWaves
+      value: 15
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c8d884058fbe23f49832be5fdbacd7fd, type: 3}
 --- !u!1001 &3943408920405279513
@@ -46737,6 +46742,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8036538202062919337, guid: e3f62a068ed2c0642a3f531ef17717fa,
+        type: 3}
+      propertyPath: ground
+      value: 
+      objectReference: {fileID: 2129997742}
     - target: {fileID: 8036538202062919342, guid: e3f62a068ed2c0642a3f531ef17717fa,
         type: 3}
       propertyPath: m_Name
