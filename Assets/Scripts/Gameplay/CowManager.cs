@@ -21,20 +21,37 @@ public class CowManager : MonoBehaviour
 	public CowEventSO cowDied;
 	public CowEventSO cowHerded;
 	public HerdingEventSO cowHerdingComplete;
+	public HerdingEventSO cowHerdingChanged;
 	public BoolEventSO penOpenEvent;
 	public VoidEventSO restartGameEvent = default;
 
 	public void StartGame()
 	{
 		cows = spawner.Spawn(entitiesToSpawn).ToList();
+		UpdateCowHerding();
+	}
+
+	private void ClearAllCows()
+	{
+		foreach (var cow in deadCows)
+			Destroy(cow);
+
+		foreach (var cow in cows)
+			Destroy(cow);
+
+		foreach (var cow in herdedCows)
+			Destroy(cow);
 	}
 
 	private void ResetGame()
 	{
-		cows.Clear();
+		ClearAllCows();
+
 		cows = new List<GameObject>();
 		deadCows = new List<GameObject>();
 		herdedCows = new List<GameObject>();
+
+		StartGame();
 	}
 
 	private void OnEnable()
@@ -88,6 +105,8 @@ public class CowManager : MonoBehaviour
 		cow.SetActive(true);
 		herdedCows.Remove(cow);
 		cows.Add(cow);
+
+		UpdateCowHerding();
 	}
 
 	private void PenOpened(bool open)
@@ -103,13 +122,29 @@ public class CowManager : MonoBehaviour
 
 		cow.SetActive(false);
 
+		CheckCowHerdingComplete();
+	}
+
+	private void CheckCowHerdingComplete()
+	{
 		if (cows.Count <= 0)
 		{
 			cowHerdingComplete?.RaiseEvent(new HerdingState()
 			{
 				cowsSaved = herdedCows.Count
 			});
+		} else
+		{
+			UpdateCowHerding();
 		}
+	}
+
+	private void UpdateCowHerding()
+	{
+		cowHerdingChanged?.RaiseEvent(new HerdingState()
+		{
+			looseCows = cows.Count
+		});
 	}
 
 	private void CowDied(GameObject cow)
@@ -118,5 +153,7 @@ public class CowManager : MonoBehaviour
 		cows.Remove(cow);
 
 		cow.SetActive(false);
+
+		CheckCowHerdingComplete();
 	}
 }

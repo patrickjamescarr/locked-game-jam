@@ -53,7 +53,7 @@ public class CowController : MonoBehaviour, IDamageable
 
 	private void ResetGame()
 	{
-		Destroy(this.gameObject);
+		// Destroy(this.gameObject);
 	}
 
 	private void Start()
