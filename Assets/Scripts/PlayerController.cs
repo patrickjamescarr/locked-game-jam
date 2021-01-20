@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour, IDamageable, ICanPickUp
 	private bool isCurrentlyHerding = false;
 	private CowController cowBeingHerded;
 	private Vector3 initialPosition;
+	private float initialHealth;
 
 	public Camera cam;
 	public Transform gunSprite;
@@ -45,6 +46,7 @@ public class PlayerController : MonoBehaviour, IDamageable, ICanPickUp
 
 		speed = originalSpeed;
 		initialPosition = transform.position;
+		initialHealth = health;
 		gun.SetAmmo(startingAmmo);
 	}
 
@@ -69,6 +71,8 @@ public class PlayerController : MonoBehaviour, IDamageable, ICanPickUp
 	private void RestartGame()
 	{
 		this.transform.position = initialPosition;
+		speed = originalSpeed;
+		health = initialHealth;
 		gun.SetAmmo(startingAmmo);
 	}
 

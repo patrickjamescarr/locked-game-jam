@@ -29,12 +29,12 @@ public class CowManager : MonoBehaviour
 		cows = spawner.Spawn(entitiesToSpawn).ToList();
 	}
 
-	private void Reset()
+	private void ResetGame()
 	{
+		cows.Clear();
+		cows = new List<GameObject>();
 		deadCows = new List<GameObject>();
 		herdedCows = new List<GameObject>();
-		spawner.Reset();
-		StartGame();
 	}
 
 	private void OnEnable()
@@ -49,7 +49,7 @@ public class CowManager : MonoBehaviour
 			penOpenEvent.OnEventRaised += PenOpened;
 
 		if (restartGameEvent != null)
-			restartGameEvent.OnEventRaised += Reset;
+			restartGameEvent.OnEventRaised += ResetGame;
 	}
 
 	private void OnDisable()
@@ -64,7 +64,7 @@ public class CowManager : MonoBehaviour
 			penOpenEvent.OnEventRaised -= PenOpened;
 
 		if (restartGameEvent != null)
-			restartGameEvent.OnEventRaised += Reset;
+			restartGameEvent.OnEventRaised += ResetGame;
 	}
 
 	private void Update()

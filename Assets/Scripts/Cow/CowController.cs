@@ -8,6 +8,7 @@ public class CowController : MonoBehaviour, IDamageable
 	public CowEventSO cowDied;
 	public CowEventSO cowHerded;
 	public BoolEventSO cowCanHerd;
+	public VoidEventSO gameResetEvent;
 
 	[Header("Movement")]
 	public float acceleration = 5f;
@@ -26,6 +27,7 @@ public class CowController : MonoBehaviour, IDamageable
 	private StateMachine stateMachine;
 	private Seeker seeker;
 	public bool newTargetCalculated = true;
+	private float initialHealth;
 
 	public Vector3 target;
 	public Rigidbody2D rb;
@@ -37,11 +39,29 @@ public class CowController : MonoBehaviour, IDamageable
 	public CowWanderState wander;
 	public CowFollowState herding;
 
+	private void OnEnable()
+	{
+		if (gameResetEvent != null)
+			gameResetEvent.OnEventRaised += ResetGame;
+	}
+
+	private void OnDisable()
+	{
+		if (gameResetEvent != null)
+			gameResetEvent.OnEventRaised -= ResetGame;
+	}
+
+	private void ResetGame()
+	{
+		Destroy(this.gameObject);
+	}
 
 	private void Start()
 	{
 		rb = GetComponent<Rigidbody2D>();
 		seeker = GetComponent<Seeker>();
+
+		initialHealth = health;
 
 		mover = new Mover(nextWaypointDistance);
 
