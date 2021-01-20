@@ -44,6 +44,9 @@ GameObject:
   - component: {fileID: 3943408920889407718}
   - component: {fileID: 3943408920889409304}
   - component: {fileID: 3943408920889409305}
+  - component: {fileID: 129256223267622033}
+  - component: {fileID: 6398342413172689550}
+  - component: {fileID: 4054610367214049720}
   m_Layer: 8
   m_Name: LockedPen
   m_TagString: Untagged
@@ -60,7 +63,7 @@ Transform:
   m_GameObject: {fileID: 3943408920889407719}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 7, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 3943408920867804128}
   m_RootOrder: 1
@@ -104,7 +107,7 @@ SpriteRenderer:
   m_SortingLayerID: 1955036769
   m_SortingLayer: -1
   m_SortingOrder: 1
-  m_Sprite: {fileID: 4003434215455667555, guid: ccec3810f35f87b49a057c4b43e233b9,
+  m_Sprite: {fileID: -9132518384313571126, guid: f53982a3550fb9541865aa273ba5cb3e,
     type: 3}
   m_Color: {r: 0.6603774, g: 0.39560342, b: 0.39560342, a: 1}
   m_FlipX: 0
@@ -128,20 +131,110 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_UsedByComposite: 1
+  m_Offset: {x: -0.004439473, y: -0.0024271011}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 3, y: 5}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.95, y: 1}
+  m_Size: {x: 2.9655163, y: 2.984026}
   m_EdgeRadius: 0
+--- !u!50 &129256223267622033
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3943408920889407719}
+  m_BodyType: 2
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!66 &6398342413172689550
+CompositeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3943408920889407719}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_GeometryType: 0
+  m_GenerationType: 0
+  m_EdgeRadius: 0
+  m_ColliderPaths:
+  - m_Collider: {fileID: 3943408920889409305}
+    m_ColliderPaths:
+    - - X: 29566081
+        Y: -29888802
+      - X: 29566081
+        Y: 29791718
+      - X: -29743952
+        Y: 29791425
+      - X: -29743659
+        Y: -29888802
+  m_CompositePaths:
+    m_Paths:
+    - - {x: 2.9565787, y: -2.9888802}
+      - {x: 2.9565787, y: 2.9791718}
+      - {x: -2.9743953, y: 2.9791133}
+      - {x: -2.9743366, y: -2.9888802}
+  m_VertexDistance: 0.0005
+  m_OffsetDistance: 0.00005
+--- !u!60 &4054610367214049720
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3943408920889407719}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 3, y: 5}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 1
+  m_Points:
+    m_Paths:
+    - - {x: 0.27083334, y: 2.5}
+      - {x: -0.14583334, y: 2.5}
+      - {x: -1.0208334, y: 2.1458335}
+      - {x: -1.5, y: 1.5625}
+      - {x: -1.5, y: -1.5416667}
+      - {x: 1.5, y: -1.5416667}
+      - {x: 1.5, y: 1.5416667}
+      - {x: 0.9791667, y: 2.0833335}
 --- !u!1 &3943408921343182230
 GameObject:
   m_ObjectHideFlags: 0
@@ -169,8 +262,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3943408921343182230}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 5, z: 0}
-  m_LocalScale: {x: 10, y: 3, z: 1}
+  m_LocalPosition: {x: 0, y: -4, z: 0}
+  m_LocalScale: {x: 6, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 3943408920867804128}
   m_RootOrder: 0
@@ -214,18 +307,18 @@ SpriteRenderer:
   m_SortingLayerID: 1955036769
   m_SortingLayer: -1
   m_SortingOrder: 2
-  m_Sprite: {fileID: -2041637669499241188, guid: ccec3810f35f87b49a057c4b43e233b9,
+  m_Sprite: {fileID: -1347532211411968617, guid: 7b35bd1d038ef2349a3bd64a9d767a63,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 0
+  m_DrawMode: 1
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
 --- !u!61 &3943408921343182216
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -246,7 +339,7 @@ BoxCollider2D:
     oldSize: {x: 1, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
-    drawMode: 0
+    drawMode: 1
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
@@ -267,7 +360,8 @@ MonoBehaviour:
   timerSprite: {fileID: 2475863740392441489}
   herdButtonUI: {fileID: 0}
   gameStartEvent: {fileID: 11400000, guid: 3cb336970831fdf4694f722958c03e96, type: 2}
-  padlockTimer: 5
+  penOpenEvent: {fileID: 11400000, guid: c83de34ec5e0e944aa54683ff59cedf2, type: 2}
+  padlockTimer: 20
 --- !u!1 &8327673278252830336
 GameObject:
   m_ObjectHideFlags: 0
@@ -293,8 +387,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8327673278252830336}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.4, z: 0}
-  m_LocalScale: {x: 1000, y: 20, z: 1}
+  m_LocalPosition: {x: 0, y: -2.25, z: 0}
+  m_LocalScale: {x: 10, y: 20, z: 1}
   m_Children: []
   m_Father: {fileID: 3943408920867804128}
   m_RootOrder: 2
