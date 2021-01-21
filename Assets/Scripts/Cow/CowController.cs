@@ -38,10 +38,15 @@ public class CowController : MonoBehaviour, IDamageable
 	public CowWanderState wander;
 	public CowFollowState herding;
 
+	private Animator animator;
+	private SpriteRenderer spriteRenderer;
+
 	private void Start()
 	{
 		rb = GetComponent<Rigidbody2D>();
 		seeker = GetComponent<Seeker>();
+		animator = GetComponentInChildren<Animator>();
+		spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 
 		initialHealth = health;
 
@@ -153,7 +158,16 @@ public class CowController : MonoBehaviour, IDamageable
 	}
 
 	private void FixedUpdate()
-	{
-		stateMachine.CurrentState.PhysicsUpdate();
-	}
+    {
+        stateMachine.CurrentState.PhysicsUpdate();
+
+        UpdateGraphics();
+    }
+
+    private void UpdateGraphics()
+    {
+        animator.SetFloat("Speed", rb.velocity.magnitude);
+
+        spriteRenderer.flipX = rb.velocity.x < 0;
+    }
 }
