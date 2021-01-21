@@ -7,7 +7,6 @@ public class CowController : MonoBehaviour, IDamageable
 	[Header("Events")]
 	public CowEventSO cowDied;
 	public CowEventSO cowHerded;
-	public BoolEventSO cowCanHerd;
 
 	[Header("Movement")]
 	public float acceleration = 5f;
@@ -130,22 +129,6 @@ public class CowController : MonoBehaviour, IDamageable
 		if (!p.error)
 		{
 			mover.SetPath(p);
-		}
-	}
-
-	private void OnTriggerEnter2D(Collider2D other)
-	{
-		if (other.CompareTag("Player"))
-		{
-			cowCanHerd?.RaiseEvent(true);
-		}
-	}
-
-	private void OnTriggerExit2D(Collider2D other)
-	{
-		if (other.CompareTag("Player"))
-		{
-			cowCanHerd?.RaiseEvent(false);
 		}
 	}
 

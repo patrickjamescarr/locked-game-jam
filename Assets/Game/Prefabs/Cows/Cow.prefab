@@ -150,7 +150,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.03, y: -0.19}
+  m_Offset: {x: 0.011115372, y: -0.22976062}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -161,7 +161,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.89, y: 0.59}
+  m_Size: {x: 0.62223077, y: 0.367693}
   m_EdgeRadius: 0
 --- !u!50 &1996257479
 Rigidbody2D:
@@ -197,7 +197,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.03, y: -0.19}
+  m_Offset: {x: 0, y: -0.2}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -208,7 +208,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.89, y: 0.59}
+  m_Size: {x: 0.75, y: 0.45}
   m_EdgeRadius: 0
 --- !u!114 &6412049541272183002
 MonoBehaviour:
@@ -224,13 +224,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cowDied: {fileID: 11400000, guid: cf81a71f36c84c9469bdebc2c97c5d39, type: 2}
   cowHerded: {fileID: 11400000, guid: 79aab164258d5e24ebc9f20c7945f77f, type: 2}
-  cowCanHerd: {fileID: 11400000, guid: 2ca95b44612c61f4e8ae08c5319dc43f, type: 2}
-  acceleration: 5
-  maxSpeed: 10
+  acceleration: 150
+  maxSpeed: 6
   nextWaypointDistance: 3
   wanderRange: 10
   health: 300
-  followDistance: 1
+  followDistance: 6
   speed: 3
   damageTextPrefab: {fileID: 187816140549474075, guid: 8e3b777d548cb784f8783055bd29df74,
     type: 3}

@@ -10,9 +10,13 @@ public class CowFollowState : CowState
 		{
 			float distance = Vector3.Distance(controller.transform.position, controller.player.transform.position);
 
-			if (distance >= controller.followDistance)
+			if (distance <= controller.followDistance)
 			{
 				FollowPlayer();
+			} else
+			{
+				controller.player.CancelHerd();
+				stateMachine.ChangeState(controller.wander);
 			}
 		}
 	}

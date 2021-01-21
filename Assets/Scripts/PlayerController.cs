@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour, IDamageable, ICanPickUp
 	public GunSO gun;
 	public GameObject damageTextPrefab;
 	public Animator animator;
+
 	public SpriteRenderer spriteRenderer;
 
 	[Header("Events")]
@@ -52,18 +53,12 @@ public class PlayerController : MonoBehaviour, IDamageable, ICanPickUp
 
 	private void OnEnable()
 	{
-		if (cowCanHerd != null)
-			cowCanHerd.OnEventRaised += SetCanHerdCow;
-
 		if (restartGameEvent != null)
 			restartGameEvent.OnEventRaised += RestartGame;
 	}
 
 	private void OnDisable()
 	{
-		if (cowCanHerd != null)
-			cowCanHerd.OnEventRaised -= SetCanHerdCow;
-
 		if (restartGameEvent != null)
 			restartGameEvent.OnEventRaised -= RestartGame;
 	}
@@ -73,12 +68,8 @@ public class PlayerController : MonoBehaviour, IDamageable, ICanPickUp
 		this.transform.position = initialPosition;
 		speed = originalSpeed;
 		health = initialHealth;
+		canHerdCow = false;
 		gun.SetAmmo(startingAmmo);
-	}
-
-	private void SetCanHerdCow(bool val)
-	{
-		canHerdCow = val;
 	}
 
 	private void Update()
@@ -93,8 +84,15 @@ public class PlayerController : MonoBehaviour, IDamageable, ICanPickUp
 		}
 	}
 
+	public void CancelHerd()
+	{
+		TryStopHerdingCow();
+	}
+
 	private void HerdCow()
 	{
+		CheckCanHerdCow();
+
 		if (Input.GetKeyDown(KeyCode.H))
 		{
 			if (isCurrentlyHerding)
@@ -105,6 +103,27 @@ public class PlayerController : MonoBehaviour, IDamageable, ICanPickUp
 			{
 				TryHerdCow();
 			}
+		}
+	}
+
+	private void CheckCanHerdCow()
+	{
+		if (Random.Range(0, 100f) < 10f)
+		{
+			Collider2D[] hits = Physics2D.OverlapCircleAll(this.transform.position, herdRange);
+
+			foreach(var hit in hits)
+			{
+				if (hit.CompareTag("Cow"))
+				{
+					canHerdCow = true;
+					cowCanHerd.RaiseEvent(true);
+					return;
+				}
+			}
+
+			canHerdCow = false;
+			cowCanHerd.RaiseEvent(false);
 		}
 	}
 
