@@ -112,7 +112,7 @@ public class PlayerController : MonoBehaviour, IDamageable, ICanPickUp
 		{
 			Collider2D[] hits = Physics2D.OverlapCircleAll(this.transform.position, herdRange);
 
-			foreach(var hit in hits)
+			foreach (var hit in hits)
 			{
 				if (hit.CompareTag("Cow"))
 				{
@@ -190,22 +190,22 @@ public class PlayerController : MonoBehaviour, IDamageable, ICanPickUp
 
 		// Some hacky stuff going on here to prevent pointing the gun at the character
 		// and restricting bullet direction based on which way the character is facing
-		if(!flipped)
-        {
+		if (!flipped)
+		{
 			direction.x = Mathf.Clamp(direction.x, 0f, 1.0f);
 
 			angle = Mathf.Clamp(angle, -90f, 70f);
-        }
+		}
 		else
-        {
+		{
 			direction.x = Mathf.Clamp(direction.x, -1.0f, 0f);
-			
-			if(angle < 0)
-            {
+
+			if (angle < 0)
+			{
 				angle = Mathf.Clamp(angle, -180f, -90f);
-            }
+			}
 			else
-            {
+			{
 				angle = Mathf.Clamp(angle, 110f, 180f);
 			}
 		}
@@ -235,8 +235,13 @@ public class PlayerController : MonoBehaviour, IDamageable, ICanPickUp
 
 	private void Shoot()
 	{
-		if (Input.GetMouseButtonDown(0) && !isCurrentlyHerding)
+		if (Input.GetMouseButtonDown(0))
 		{
+			if (isCurrentlyHerding)
+			{
+				CancelHerd();
+			}
+
 			gun.Shoot(this.gunSprite, direction);
 		}
 	}
