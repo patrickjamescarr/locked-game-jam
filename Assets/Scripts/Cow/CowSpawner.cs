@@ -40,12 +40,13 @@ public class CowSpawner : MonoBehaviour
 
 	private Vector3 GetSpawnSpot()
 	{
-		int xVal = Random.Range(ground.origin.x + 1, ground.origin.x + ground.size.x - 1);
-		int yVal = Random.Range(ground.origin.y + 1, ground.origin.y + ground.size.y - 1);
-
-		Vector3 pos = new Vector3(xVal, yVal);
 		while (true)
 		{
+			int xVal = Random.Range(ground.origin.x + 1, ground.origin.x + ground.size.x - 1);
+			int yVal = Random.Range(ground.origin.y + 1, ground.origin.y + ground.size.y - 1);
+
+			Vector3 pos = new Vector3(xVal, yVal);
+
 			GraphNode node = AstarPath.active.GetNearest(pos).node;
 			if (node.Walkable)
 			{

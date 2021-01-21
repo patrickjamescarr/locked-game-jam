@@ -161,8 +161,8 @@ public class CowController : MonoBehaviour, IDamageable
     {
         stateMachine.CurrentState.PhysicsUpdate();
 
-		if(stateMachine.CurrentState == wander)
-        {
+		if (stateMachine.CurrentState == wander)
+		{
 			UpdateGraphics(rb.velocity);
 		}
     }
