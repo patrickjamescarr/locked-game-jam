@@ -161,13 +161,16 @@ public class CowController : MonoBehaviour, IDamageable
     {
         stateMachine.CurrentState.PhysicsUpdate();
 
-        UpdateGraphics();
+		if(stateMachine.CurrentState == wander)
+        {
+			UpdateGraphics(rb.velocity);
+		}
     }
 
-    private void UpdateGraphics()
+    public void UpdateGraphics(Vector2 velocity)
     {
-        animator.SetFloat("Speed", rb.velocity.magnitude);
+        animator.SetFloat("Speed", velocity.magnitude);
 
-        spriteRenderer.flipX = rb.velocity.x < 0;
+        spriteRenderer.flipX = velocity.x < 0;
     }
 }
