@@ -1,11 +1,6 @@
 ﻿using TMPro;
 using UnityEngine;
 
-public static class GameSettings
-{
-	public static bool inGame = false;
-}
-
 public class GameManager : MonoBehaviour
 {
 	private CowManager cowManager;
@@ -20,16 +15,19 @@ public class GameManager : MonoBehaviour
 	public GameObject padlockWarningUI;
 	public GameObject playerDiedUI;
 	public TMP_Text ammoInfoText;
+	public TMP_Text looseCowsText;
 
 	[Header("Events")]
     [SerializeField] private VoidEventSO quitGameEvent = default;
 	[SerializeField] private BoolEventSO cowCanHerd = default;
 	[SerializeField] private VoidEventSO playerDiedEvent = default;
 	[SerializeField] private HerdingEventSO cowHerdingComplete = default;
+	[SerializeField] private HerdingEventSO cowHerdingChanged = default;
 	[SerializeField] private VoidEventSO startGameEvent = default;
 	[SerializeField] private VoidEventSO restartGameEvent = default;
 	[SerializeField] private BoolEventSO penOpenEvent = default;
 	[SerializeField] private AmmoEventSO ammoChangedEventChannel = default;
+	[SerializeField] private BoolEventSO displayHudEventChannel = default;
 
 	private void Start()
 	{
@@ -48,6 +46,8 @@ public class GameManager : MonoBehaviour
 		Time.timeScale = 1;
 		startGameEvent?.RaiseEvent();
 
+		ShowHud(true);
+
 		GameSettings.inGame = true;
 	}
 
@@ -65,6 +65,9 @@ public class GameManager : MonoBehaviour
 		if (cowHerdingComplete != null)
 			cowHerdingComplete.OnEventRaised += CowHerdingComplete;
 
+		if (cowHerdingChanged!= null)
+			cowHerdingChanged.OnEventRaised += CowHerdingChanged;
+
 		if (restartGameEvent != null)
 			restartGameEvent.OnEventRaised += RestartGame;
 
@@ -73,7 +76,6 @@ public class GameManager : MonoBehaviour
 
 		if (ammoChangedEventChannel != null)
 			ammoChangedEventChannel.OnEventRaised += AmmoChanged;
-
 	}
 
 	private void OnDisable()
@@ -90,6 +92,9 @@ public class GameManager : MonoBehaviour
 		if (cowHerdingComplete != null)
 			cowHerdingComplete.OnEventRaised -= CowHerdingComplete;
 
+		if (cowHerdingChanged != null)
+			cowHerdingChanged.OnEventRaised -= CowHerdingChanged;
+
 		if (restartGameEvent != null)
 			restartGameEvent.OnEventRaised -= RestartGame;
 
@@ -104,7 +109,9 @@ public class GameManager : MonoBehaviour
 	{
 		if (Input.GetKeyDown(KeyCode.Escape) && pauseUI != null)
 		{
-			DisplayCanvas(pauseUI, !pauseUI.activeSelf);
+			var displayMenu = !pauseUI.activeSelf;
+			DisplayCanvas(pauseUI, displayMenu);
+			ShowHud(!displayMenu);
 		}
 	}
 
@@ -168,6 +175,7 @@ public class GameManager : MonoBehaviour
 	private void PlayerDied()
 	{
 		DisplayCanvas(playerDiedUI, true);
+		ShowHud(false);
 		GameSettings.inGame = false;
 	}
 
@@ -177,6 +185,20 @@ public class GameManager : MonoBehaviour
 		GameSettings.inGame = false;
 		cowsSavedText.text = herding.cowsSaved.ToString();
 		successUI.SetActive(true);
+		ShowHud(false);
+	}
+
+	private void CowHerdingChanged(HerdingState herding)
+	{
+		if (looseCowsText != null)
+		{
+			looseCowsText.text = $"{herding.looseCows}";
+		}
+	}
+
+	private void ShowHud(bool show)
+	{
+		displayHudEventChannel.RaiseEvent(show);
 	}
 
 	private void AmmoChanged(AmmoInfo ammo)
