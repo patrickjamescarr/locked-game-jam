@@ -33,12 +33,19 @@ public class Mover
 		}
 
         Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
-        Vector2 force = direction * acceleration * Time.deltaTime;
+        Vector2 force = direction * acceleration * Time.fixedDeltaTime;
 
         if (rb.velocity.magnitude < maxSpeed)
-        {
-            rb.AddForce(force);
-        }
+		{
+			if (rb.bodyType == RigidbodyType2D.Kinematic)
+			{
+				rb.MovePosition(rb.position + force);
+			}
+			else
+			{
+				rb.AddForce(force);
+			}
+		}
 
         float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
 

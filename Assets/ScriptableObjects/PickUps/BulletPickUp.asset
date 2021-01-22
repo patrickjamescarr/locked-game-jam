@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed94362ed43bb7445b5bf2736ad2fc74, type: 3}
   m_Name: BulletPickUp
   m_EditorClassIdentifier: 
-  sprite: {fileID: 2464431707759322702, guid: dc91cf4b85c3f724992c416a38d3e818, type: 3}
+  sprite: {fileID: 7431529995326980795, guid: 4225d9f9936942f4c9a2f7a19bd3e7af, type: 3}
   count: 12
+  permanent: 1

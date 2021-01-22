@@ -123,7 +123,6 @@ public class CowManager : MonoBehaviour
 	{
 		herdedCows.Add(cow);
 		cows.Remove(cow);
-
 		cow.SetActive(false);
 
 		CheckCowHerdingComplete();
@@ -148,7 +147,6 @@ public class CowManager : MonoBehaviour
 		int wave = entitiesToSpawn - cows.Count;
 		wave = wave / waveIncreaseEvery;
 
-		Debug.Log($"Current Wave is {wave}");
 		if (wave > currentWave)
 		{
 			waveIncreaseEvent?.RaiseEvent(wave);
@@ -157,7 +155,9 @@ public class CowManager : MonoBehaviour
 
 		cowHerdingChanged?.RaiseEvent(new HerdingState()
 		{
-			looseCows = cows.Count
+			looseCows = cows.Count,
+			cowsSaved = herdedCows.Count,
+			cowsDied = deadCows.Count
 		});
 	}
 

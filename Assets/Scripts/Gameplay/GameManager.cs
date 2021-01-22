@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
 	public GameObject padlockWarningUI;
 	public GameObject playerDiedUI;
 	public TMP_Text ammoInfoText;
-	public TMP_Text looseCowsText;
+	public TMP_Text savedCowsText;
 
 	[Header("Events")]
     [SerializeField] private VoidEventSO quitGameEvent = default;
@@ -190,9 +190,9 @@ public class GameManager : MonoBehaviour
 
 	private void CowHerdingChanged(HerdingState herding)
 	{
-		if (looseCowsText != null)
+		if (savedCowsText != null)
 		{
-			looseCowsText.text = $"{herding.looseCows}";
+			savedCowsText.text = $"{herding.cowsSaved}";
 		}
 	}
 

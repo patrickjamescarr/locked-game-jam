@@ -51,21 +51,22 @@ public class GunSO : ScriptableObject
 		ammoChangedEventChannel?.RaiseEvent(ammo);
 	}
 
-	public void Shoot(Transform transform, Vector2 direction)
+
+	public void Shoot(Transform gunSprite, Vector2 direction, Action playReload)
 	{
 		if (ammo.currentBulletsInClip > 0)
 		{
-			var bullet = GetProjectile(transform);
+			var bullet = GetProjectile(gunSprite);
 			bullet.Shoot(direction, speed, damageRange, damage, DeactivateProjectile);
 			ammo.currentBulletsInClip--;
 			ammoChangedEventChannel?.RaiseEvent(ammo);
 		} else
 		{
-			Reload();
+			Reload(playReload);
 		}
 	}
 
-	public void Reload()
+	public void Reload(Action playReload)
 	{
 		int bulletsToLoad = 0;
 
@@ -80,6 +81,11 @@ public class GunSO : ScriptableObject
 		ammo.currentBulletsInClip += bulletsToLoad;
 		ammo.heldBullets -= bulletsToLoad;
 
+		if (bulletsToLoad > 0)
+		{
+			playReload();
+		}
+
 		ammoChangedEventChannel?.RaiseEvent(ammo);
 	}
 
@@ -89,7 +95,7 @@ public class GunSO : ScriptableObject
 
 		if (proj == null)
 		{
-			var bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+			var bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
 			return bullet.GetComponent<Projectile>();
 		} else
 		{

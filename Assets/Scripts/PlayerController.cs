@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour, IDamageable, ICanPickUp
 	public Animator animator;
 
 	public SpriteRenderer spriteRenderer;
+	public AudioSource reloadSound;
 
 	[Header("Events")]
 	public BoolEventSO cowCanHerd;
@@ -93,7 +94,7 @@ public class PlayerController : MonoBehaviour, IDamageable, ICanPickUp
 	{
 		CheckCanHerdCow();
 
-		if (Input.GetKeyDown(KeyCode.H))
+		if (Input.GetKeyDown(KeyCode.Space))
 		{
 			if (isCurrentlyHerding)
 			{
@@ -244,7 +245,7 @@ public class PlayerController : MonoBehaviour, IDamageable, ICanPickUp
 				CancelHerd();
 			}
 
-			gun.Shoot(this.gunSprite, direction);
+			gun.Shoot(this.gunSprite, direction, () => { reloadSound.Play(); });
 		}
 	}
 

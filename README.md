@@ -13,3 +13,7 @@ Guns deal damage on collision enter if the object it is colliding with the imple
 # Font
 
 The font used is Hardpixel by Jovanny Lemonad https://www.1001freefonts.com/hardpixel.font
+
+# Audio
+
+1. Reload SFX - https://freesound.org/people/nioczkus/sounds/396331/

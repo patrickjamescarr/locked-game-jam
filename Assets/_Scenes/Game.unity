@@ -339,7 +339,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 5
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3f365ad6e3f063443808cb0a3c2b7a87, type: 2}
   m_sharedMaterial: {fileID: 2854560132984284111, guid: 3f365ad6e3f063443808cb0a3c2b7a87,
@@ -711,8 +711,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 35, y: 10}
-  m_SizeDelta: {x: -70, y: 50}
+  m_AnchoredPosition: {x: 70, y: 10}
+  m_SizeDelta: {x: -140, y: 50}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &223321690
 MonoBehaviour:
@@ -1545,8 +1545,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 125}
+  m_SizeDelta: {x: 0, y: -250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &353163464
 MonoBehaviour:
@@ -5338,7 +5338,6 @@ GameObject:
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
   - component: {fileID: 519420030}
-  - component: {fileID: 519420033}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -5445,26 +5444,6 @@ Transform:
   m_Father: {fileID: 21777227}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &519420033
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 519420028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a160d838ff8b4b4693ac20007e008c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_AssetsPPU: 48
-  m_RefResolutionX: 640
-  m_RefResolutionY: 360
-  m_UpscaleRT: 0
-  m_PixelSnapping: 1
-  m_CropFrameX: 0
-  m_CropFrameY: 0
-  m_StretchFill: 0
 --- !u!1 &532983479
 GameObject:
   m_ObjectHideFlags: 0
@@ -6522,7 +6501,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 400, y: 300}
+  m_SizeDelta: {x: 500, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1032705295
 MonoBehaviour:
@@ -6669,7 +6648,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 10, y: 10}
-  m_SizeDelta: {x: 50, y: 50}
+  m_SizeDelta: {x: 120, y: 50}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1117464399
 MonoBehaviour:
@@ -6690,7 +6669,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -7778452651339289692, guid: dc91cf4b85c3f724992c416a38d3e818,
+  m_Sprite: {fileID: -162643266454970792, guid: dc91cf4b85c3f724992c416a38d3e818,
     type: 3}
   m_Type: 0
   m_PreserveAspect: 0
@@ -6781,10 +6760,10 @@ PrefabInstance:
       propertyPath: herdCircle
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 881106986913785147, guid: fc11072e187288241af9ccb52feed090,
+    - target: {fileID: 2579602513905728068, guid: fc11072e187288241af9ccb52feed090,
         type: 3}
-      propertyPath: originalSpeed
-      value: 3
+      propertyPath: m_Volume
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc11072e187288241af9ccb52feed090, type: 3}
@@ -7022,7 +7001,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -20, y: 20}
+  m_AnchoredPosition: {x: -20, y: 250}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &1195148646
@@ -7372,7 +7351,7 @@ MonoBehaviour:
   padlockWarningUI: {fileID: 1492376469}
   playerDiedUI: {fileID: 1810225412}
   ammoInfoText: {fileID: 296545585}
-  looseCowsText: {fileID: 113826049}
+  savedCowsText: {fileID: 113826049}
   quitGameEvent: {fileID: 11400000, guid: 09113290e35f8ca4184e6e55599c3732, type: 2}
   cowCanHerd: {fileID: 11400000, guid: 2ca95b44612c61f4e8ae08c5319dc43f, type: 2}
   playerDiedEvent: {fileID: 11400000, guid: 6f8826a09fb2fe4489fff2574c9c3d53, type: 2}
@@ -7800,7 +7779,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -8689,10 +8668,10 @@ RectTransform:
   m_Father: {fileID: 1032705294}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -10}
-  m_SizeDelta: {x: 0, y: -120}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -100}
+  m_SizeDelta: {x: 0, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2129997739
 GameObject:
@@ -26273,12 +26252,12 @@ PrefabInstance:
     - target: {fileID: 1607752476225459840, guid: d63ec17a7486a6847a2b79eb88ee9561,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.55
+      value: 6.5
       objectReference: {fileID: 0}
     - target: {fileID: 1607752476225459840, guid: d63ec17a7486a6847a2b79eb88ee9561,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -7.51
+      value: -7.5
       objectReference: {fileID: 0}
     - target: {fileID: 1607752476225459840, guid: d63ec17a7486a6847a2b79eb88ee9561,
         type: 3}
