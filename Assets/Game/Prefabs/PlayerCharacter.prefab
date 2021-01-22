@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 881106986913785140}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6996516477128207420}
   m_Father: {fileID: 0}
@@ -111,7 +111,7 @@ MonoBehaviour:
   playerDied: {fileID: 11400000, guid: 6f8826a09fb2fe4489fff2574c9c3d53, type: 2}
   restartGameEvent: {fileID: 11400000, guid: 5ba76a3e45e225c46a5fbc6363cd0962, type: 2}
   health: 100
-  originalSpeed: 5
+  originalSpeed: 2.5
   herdRange: 2
   startingAmmo:
     clipSize: 6
