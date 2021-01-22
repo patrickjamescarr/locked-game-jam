@@ -27,7 +27,10 @@ public class CowFollowState : CowState
 
 		if (movement != Vector2.zero)
 		{
-			controller.transform.Translate(new Vector3(movement.x * controller.speed * Time.deltaTime, movement.y * controller.speed * Time.deltaTime));
+			var x = movement.x * controller.speed * Time.deltaTime;
+			var y = movement.y* controller.speed* Time.deltaTime;
+
+			controller.transform.Translate(new Vector3(x, y));
 			controller.UpdateGraphics(movement);
 		}
 	}

@@ -192,7 +192,7 @@ public class PlayerController : MonoBehaviour, IDamageable, ICanPickUp
 		// and restricting bullet direction based on which way the character is facing
 		if (!flipped)
 		{
-			direction.x = Mathf.Clamp(direction.x, 0f, 1.0f);
+			direction.x = Mathf.Clamp(direction.x, 0f, 0.9f);
 
 			angle = Mathf.Clamp(angle, -90f, 70f);
 		}
@@ -212,12 +212,14 @@ public class PlayerController : MonoBehaviour, IDamageable, ICanPickUp
 
 		if (direction.x == 0f && direction.y > 0)
 		{
-			direction.y = 1.0f;
+			direction.y = 0.9f;
 		}
 		if (direction.x == 0f && direction.y < 0)
 		{
 			direction.y = -1.0f;
 		}
+
+		Debug.Log(direction);
 
 
 		// flip the gun sprite on the y axis when facing left

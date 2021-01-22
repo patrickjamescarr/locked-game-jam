@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 2933998284111068903}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6724061276613367744}
   m_Father: {fileID: 0}
@@ -78,8 +78,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 4631190927396304928}
   target: {x: 0, y: 0, z: 0}
-  acceleration: 200
-  maxSpeed: 10
+  acceleration: 75
+  maxSpeed: 2
   nextWaypointDistance: 1.5
   health: 100
   attack: 10
@@ -132,7 +132,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!61 &8021697373099540091
 BoxCollider2D:

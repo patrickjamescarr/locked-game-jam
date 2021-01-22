@@ -25,8 +25,8 @@ public class Projectile : MonoBehaviour
 		return damageValue / (duration - currentDuration / duration);
 	}
 
-	private void Update()
-	{
+    private void FixedUpdate()
+    {
 		transform.position += shootDirection * shotSpeed * Time.deltaTime;
 
 		if (currentDuration <= duration)
