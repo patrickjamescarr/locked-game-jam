@@ -339,7 +339,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 5
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3f365ad6e3f063443808cb0a3c2b7a87, type: 2}
   m_sharedMaterial: {fileID: 2854560132984284111, guid: 3f365ad6e3f063443808cb0a3c2b7a87,
@@ -6760,6 +6760,11 @@ PrefabInstance:
       propertyPath: herdCircle
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 2579602513905728068, guid: fc11072e187288241af9ccb52feed090,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc11072e187288241af9ccb52feed090, type: 3}
 --- !u!1 &1156066357
@@ -7346,7 +7351,7 @@ MonoBehaviour:
   padlockWarningUI: {fileID: 1492376469}
   playerDiedUI: {fileID: 1810225412}
   ammoInfoText: {fileID: 296545585}
-  looseCowsText: {fileID: 113826049}
+  savedCowsText: {fileID: 113826049}
   quitGameEvent: {fileID: 11400000, guid: 09113290e35f8ca4184e6e55599c3732, type: 2}
   cowCanHerd: {fileID: 11400000, guid: 2ca95b44612c61f4e8ae08c5319dc43f, type: 2}
   playerDiedEvent: {fileID: 11400000, guid: 6f8826a09fb2fe4489fff2574c9c3d53, type: 2}
