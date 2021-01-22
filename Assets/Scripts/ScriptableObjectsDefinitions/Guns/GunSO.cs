@@ -89,7 +89,7 @@ public class GunSO : ScriptableObject
 
 		if (proj == null)
 		{
-			var bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+			var bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
 			return bullet.GetComponent<Projectile>();
 		} else
 		{

@@ -93,7 +93,7 @@ public class PlayerController : MonoBehaviour, IDamageable, ICanPickUp
 	{
 		CheckCanHerdCow();
 
-		if (Input.GetKeyDown(KeyCode.H))
+		if (Input.GetKeyDown(KeyCode.Space))
 		{
 			if (isCurrentlyHerding)
 			{

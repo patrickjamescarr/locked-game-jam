@@ -31,9 +31,10 @@ public class ZombieController : MonoBehaviour, IDamageable
 
 	[Header("Misc")]
 	public GameObject damageTextPrefab;
+	public PickUpSO droppable;
+	public GameObject pickUpPrefab;
 
 	private int attackTriggerCount = 0;
-
 
 	void Start()
 	{
@@ -126,10 +127,19 @@ public class ZombieController : MonoBehaviour, IDamageable
 			textMesh.SetText(((int)damage).ToString());
 	}
 
+	private void DropPickUp()
+	{
+		if (Random.Range(0, 100f) < 30)
+		{
+			var go = Instantiate(pickUpPrefab, this.transform.position, Quaternion.identity);
+			var pu = go.GetComponent<PickUp>();
+			pu.SetPickUp(droppable);
+		}
+	}
+
 	private void Die()
 	{
-		// TODO: Notify Points Scored
-
+		DropPickUp();
 		Destroy(this.gameObject);
 	}
 

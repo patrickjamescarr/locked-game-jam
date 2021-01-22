@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PickUp : MonoBehaviour
 {
@@ -13,6 +11,12 @@ public class PickUp : MonoBehaviour
 		sr.sprite = item.sprite;
 	}
 
+	public void SetPickUp(PickUpSO pu)
+	{
+		item = pu;
+		GetComponent<SpriteRenderer>().sprite = pu.sprite;
+	}
+
 	private void OnTriggerEnter2D(Collider2D other)
 	{
 		if (other.CompareTag("Player"))
@@ -22,6 +26,11 @@ public class PickUp : MonoBehaviour
 			if (player != null)
 			{
 				player.PickUp(item);
+
+				if (!item.permanent)
+				{
+					Destroy(this.gameObject);
+				}
 			}
 		}
 	}

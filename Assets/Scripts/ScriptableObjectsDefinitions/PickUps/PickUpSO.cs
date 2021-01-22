@@ -5,4 +5,5 @@ public class PickUpSO : ScriptableObject
 {
 	public Sprite sprite;
 	public int count;
+	public bool permanent;
 }
