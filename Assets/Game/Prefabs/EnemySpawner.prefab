@@ -46,7 +46,7 @@ MonoBehaviour:
   entityToSpawn: {fileID: 2933998284111068903, guid: 0b7ffcb4897779645a26e556c30d8131,
     type: 3}
   spawnManager: {fileID: 11400000, guid: 72412b4f2ae3b5141811053c37ddcd65, type: 2}
-  spawnOnStart: 1
-  timeBetweenWaves: 5
+  spawnOnStart: 0
+  timeBetweenWaves: 10
   restartGameEvent: {fileID: 11400000, guid: 5ba76a3e45e225c46a5fbc6363cd0962, type: 2}
   waveIncreaseEvent: {fileID: 11400000, guid: 625d8b59afef6c54e8aed50d4ca54565, type: 2}

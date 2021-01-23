@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -10,16 +11,16 @@ public class GameManager : MonoBehaviour
 	[Header("UI")]
 	public GameObject pauseUI;
 	public GameObject herdInstructionUI;
-	public GameObject successUI;
+	public GameObject gameOverUI;
+	public TMP_Text gameOverText;
 	public TMP_Text cowsSavedText;
 	public GameObject padlockWarningUI;
-	public GameObject playerDiedUI;
 	public TMP_Text ammoInfoText;
 	public TMP_Text savedCowsText;
 	public GameObject startGameUI;
 
 	[Header("Events")]
-    [SerializeField] private VoidEventSO quitGameEvent = default;
+	[SerializeField] private VoidEventSO quitGameEvent = default;
 	[SerializeField] private BoolEventSO cowCanHerd = default;
 	[SerializeField] private VoidEventSO playerDiedEvent = default;
 	[SerializeField] private HerdingEventSO cowHerdingComplete = default;
@@ -64,14 +65,14 @@ public class GameManager : MonoBehaviour
 
 		if (cowCanHerd != null)
 			cowCanHerd.OnEventRaised += DisplayHerdInstructions;
-	
+
 		if (playerDiedEvent != null)
 			playerDiedEvent.OnEventRaised += PlayerDied;
 
 		if (cowHerdingComplete != null)
 			cowHerdingComplete.OnEventRaised += CowHerdingComplete;
 
-		if (cowHerdingChanged!= null)
+		if (cowHerdingChanged != null)
 			cowHerdingChanged.OnEventRaised += CowHerdingChanged;
 
 		if (restartGameEvent != null)
@@ -87,7 +88,7 @@ public class GameManager : MonoBehaviour
 	private void OnDisable()
 	{
 		if (quitGameEvent != null)
-            quitGameEvent.OnEventRaised -= QuitGame;
+			quitGameEvent.OnEventRaised -= QuitGame;
 
 		if (cowCanHerd != null)
 			cowCanHerd.OnEventRaised -= DisplayHerdInstructions;
@@ -111,11 +112,14 @@ public class GameManager : MonoBehaviour
 			ammoChangedEventChannel.OnEventRaised -= AmmoChanged;
 	}
 
+	private bool gamePaused = false;
+
 	private void Update()
 	{
-		if (GameSettings.inGame && Input.GetKeyDown(KeyCode.Escape) && pauseUI != null)
+		if ((GameSettings.inGame || gamePaused) && Input.GetKeyDown(KeyCode.Escape) && pauseUI != null)
 		{
 			var displayMenu = !pauseUI.activeSelf;
+			gamePaused = displayMenu;
 			DisplayCanvas(pauseUI, displayMenu);
 			ShowHud(!displayMenu);
 		}
@@ -124,11 +128,12 @@ public class GameManager : MonoBehaviour
 	public void MuteGame()
 	{
 		isMuted = !isMuted;
-		
+
 		if (isMuted)
 		{
 			AudioListener.volume = 0;
-		} else
+		}
+		else
 		{
 			AudioListener.volume = initialVolume;
 		}
@@ -147,14 +152,35 @@ public class GameManager : MonoBehaviour
 
 	private void ClearAllUI()
 	{
-		pauseUI.SetActive(false);
-		successUI.SetActive(false);
-		playerDiedUI.SetActive(false);
+		TryTweenUI(pauseUI);
+		TryTweenUI(gameOverUI);
+	}
+
+	private void TryTweenUI(GameObject ui)
+	{
+		var scaleTween = ui.GetComponent<ScaleTween>();
+
+		if (scaleTween != null)
+		{
+			scaleTween.CloseMe();
+		}
+		else
+		{
+			ui.SetActive(false);
+		}
 	}
 
 	private void DisplayCanvas(GameObject ui, bool display)
 	{
-		ui.SetActive(display);
+		if (!display)
+		{
+			TryTweenUI(ui);
+		}
+		else
+		{
+			ui.SetActive(display);
+		}
+
 
 		if (display)
 		{
@@ -170,7 +196,7 @@ public class GameManager : MonoBehaviour
 
 	private void QuitGame()
 	{
-        Application.Quit();
+		Application.Quit();
 	}
 
 	private void DisplayHerdInstructions(bool val)
@@ -180,7 +206,8 @@ public class GameManager : MonoBehaviour
 
 	private void PlayerDied()
 	{
-		DisplayCanvas(playerDiedUI, true);
+		gameOverText.text = "You died. The zombies ate all the cows. It was awful!";
+		DisplayCanvas(gameOverUI, true);
 		ShowHud(false);
 		GameSettings.inGame = false;
 	}
@@ -190,8 +217,26 @@ public class GameManager : MonoBehaviour
 		Time.timeScale = 0;
 		GameSettings.inGame = false;
 		cowsSavedText.text = herding.cowsSaved.ToString();
-		successUI.SetActive(true);
+		gameOverText.text = GetHerdingCompleteText(herding);
+		DisplayCanvas(gameOverUI, true);
 		ShowHud(false);
+	}
+
+	private List<string> cowNames = new List<string>() { "Buttercup", "Daisy", "Fat Sam", "The Moo-minator", "Hamburger", "Cowlick", "Ineda Bunn", "Big Mac", "Moscow", "Waffles", "Mickey D.", "Brown Cow" };
+
+	private string GetHerdingCompleteText(HerdingState herding)
+	{
+		if (herding.cowsDied <= 0)
+		{
+			return "You saved all the cows. It's a miracle, congratulations.\nYour herd mooing your name through the night in an hommage to you, their saviour.";
+		}
+		else if (herding.cowsSaved <= 0)
+		{
+			return "All the cows died.\nDid you even try?";
+
+		}
+
+		return $"You saved {herding.cowsSaved} cows, but {herding.cowsDied} died.\nYou probably look at that as a good result. I'm not sure {cowNames[Random.Range(0, cowNames.Count - 1)]} and her friends would agree.";
 	}
 
 	private void CowHerdingChanged(HerdingState herding)

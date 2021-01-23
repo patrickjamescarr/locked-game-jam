@@ -134,7 +134,9 @@ public class CowManager : MonoBehaviour
 		{
 			cowHerdingComplete?.RaiseEvent(new HerdingState()
 			{
-				cowsSaved = herdedCows.Count
+				cowsSaved = herdedCows.Count,
+				cowsDied = deadCows.Count,
+				totalCows = herdedCows.Count + deadCows.Count
 			});
 		} else
 		{
