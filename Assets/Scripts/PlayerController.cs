@@ -32,6 +32,10 @@ public class PlayerController : MonoBehaviour, IDamageable, ICanPickUp
 	public float herdRange = 2f;
 	public AmmoInfo startingAmmo;
 
+	private int clipSize = 0;
+	private int currentBulletsInClip = 0;
+	private int heldBullets = 0;
+
 	[Header("Misc")]
 	public GameObject blood;
 
@@ -55,6 +59,22 @@ public class PlayerController : MonoBehaviour, IDamageable, ICanPickUp
 		initialHealth = health;
 		playerTakeDamage.RaiseEvent(initialHealth);
 		gun.SetAmmo(startingAmmo);
+
+		StoreInitialAmmo();
+	}
+
+	private void StoreInitialAmmo()
+	{
+		clipSize = startingAmmo.clipSize;
+		currentBulletsInClip = startingAmmo.currentBulletsInClip;
+		heldBullets = startingAmmo.heldBullets;
+	}
+
+	private void ResetInitialAmmo()
+	{
+		startingAmmo.clipSize = clipSize;
+		startingAmmo.currentBulletsInClip = currentBulletsInClip;
+		startingAmmo.heldBullets = heldBullets;
 	}
 
 	private void OnEnable()
@@ -76,6 +96,7 @@ public class PlayerController : MonoBehaviour, IDamageable, ICanPickUp
 		health = initialHealth;
 		playerTakeDamage.RaiseEvent(initialHealth);
 		canHerdCow = false;
+		ResetInitialAmmo();
 		gun.SetAmmo(startingAmmo);
 	}
 
