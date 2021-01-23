@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ZombieSpawnManager
   m_EditorClassIdentifier: 
   prefabName: zombie
-  numberOfPrefabsToCreate: 15
+  numberOfPrefabsToCreate: 8
   spawnPoints:
   - {x: -12, y: 13, z: 0}
   - {x: -12, y: 22, z: 0}

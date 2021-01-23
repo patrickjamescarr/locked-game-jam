@@ -31695,7 +31695,7 @@ PrefabInstance:
     - target: {fileID: 1694341949122786183, guid: c8d884058fbe23f49832be5fdbacd7fd,
         type: 3}
       propertyPath: timeBetweenWaves
-      value: 15
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c8d884058fbe23f49832be5fdbacd7fd, type: 3}
@@ -31811,6 +31811,11 @@ PrefabInstance:
       propertyPath: herdButtonUI
       value: 
       objectReference: {fileID: 1110054940}
+    - target: {fileID: 7799677623587225328, guid: 4f188cd56cf2b374b97eb04c59adc6d3,
+        type: 3}
+      propertyPath: padlockTimer
+      value: 30
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4f188cd56cf2b374b97eb04c59adc6d3, type: 3}
 --- !u!1001 &8036538201510654237
