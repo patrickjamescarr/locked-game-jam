@@ -199,17 +199,19 @@ public class PlayerController : MonoBehaviour, IDamageable, ICanPickUp
 
 		float angle = AngleBetweenTwoPoints(mousePosition, gunPosition);
 
+		Debug.Log(direction.x);
+
 		// Some hacky stuff going on here to prevent pointing the gun at the character
 		// and restricting bullet direction based on which way the character is facing
 		if (!flipped)
 		{
-			direction.x = Mathf.Clamp(direction.x, 0f, 0.9f);
+			direction.x = Mathf.Clamp(direction.x, 0.2f, 1.0f);
 
 			angle = Mathf.Clamp(angle, -90f, 70f);
 		}
 		else
 		{
-			direction.x = Mathf.Clamp(direction.x, -1.0f, 0f);
+			direction.x = Mathf.Clamp(direction.x, -1.0f, -0.2f);
 
 			if (angle < 0)
 			{
