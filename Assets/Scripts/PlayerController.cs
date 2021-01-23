@@ -32,6 +32,9 @@ public class PlayerController : MonoBehaviour, IDamageable, ICanPickUp
 	public float herdRange = 2f;
 	public AmmoInfo startingAmmo;
 
+	[Header("Misc")]
+	public GameObject blood;
+
 	public bool IsHerdingCow
 	{
 		get
@@ -255,6 +258,8 @@ public class PlayerController : MonoBehaviour, IDamageable, ICanPickUp
 			DisplayDamageText(damage);
 
 		health -= damage;
+
+		Instantiate(blood, transform.position, Quaternion.identity);
 
 		playerTakeDamage.RaiseEvent(health);
 

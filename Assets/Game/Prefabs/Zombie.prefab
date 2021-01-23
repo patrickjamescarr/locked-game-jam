@@ -90,6 +90,7 @@ MonoBehaviour:
   droppable: {fileID: 11400000, guid: 1279b695371b1a146b4ef2e10746644e, type: 2}
   pickUpPrefab: {fileID: 1607752476225459842, guid: d63ec17a7486a6847a2b79eb88ee9561,
     type: 3}
+  blood: {fileID: 1179385363282576889, guid: b1a69b2f6b6b00f4a96ea98f145703de, type: 3}
 --- !u!61 &102067565944831249
 BoxCollider2D:
   m_ObjectHideFlags: 0
