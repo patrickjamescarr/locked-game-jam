@@ -442,7 +442,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
+  m_fontSize: 12
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -906,6 +906,67 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 204143131}
   m_CullTransparentMesh: 0
+--- !u!1 &213819796
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 213819797}
+  - component: {fileID: 213819798}
+  m_Layer: 5
+  m_Name: Health
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &213819797
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 213819796}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1583171324}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 15, y: -45}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &213819798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 213819796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 0
+  m_Spacing: -85
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
 --- !u!1 &218732579
 GameObject:
   m_ObjectHideFlags: 0
@@ -8727,6 +8788,12 @@ PrefabInstance:
       propertyPath: herdCircle
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 881106986913785147, guid: fc11072e187288241af9ccb52feed090,
+        type: 3}
+      propertyPath: playerTakeDamage
+      value: 
+      objectReference: {fileID: 11400000, guid: 934d60f6a7908874ba7cd98db7862bc3,
+        type: 2}
     - target: {fileID: 2579602513905728068, guid: fc11072e187288241af9ccb52feed090,
         type: 3}
       propertyPath: m_Volume
@@ -9870,6 +9937,8 @@ MonoBehaviour:
   ammoInfoText: {fileID: 296545585}
   savedCowsText: {fileID: 113826049}
   startGameUI: {fileID: 1672832323}
+  healthUI: {fileID: 213819796}
+  heart: {fileID: 7090217423664659252, guid: 678e34541873354418a99fea1010884d, type: 3}
   quitGameEvent: {fileID: 11400000, guid: 09113290e35f8ca4184e6e55599c3732, type: 2}
   cowCanHerd: {fileID: 11400000, guid: 2ca95b44612c61f4e8ae08c5319dc43f, type: 2}
   playerDiedEvent: {fileID: 11400000, guid: 6f8826a09fb2fe4489fff2574c9c3d53, type: 2}
@@ -9882,6 +9951,7 @@ MonoBehaviour:
     type: 2}
   displayHudEventChannel: {fileID: 11400000, guid: ccfa01a298de7cf438af8cac9c2d32f5,
     type: 2}
+  playerTakeDamage: {fileID: 11400000, guid: 934d60f6a7908874ba7cd98db7862bc3, type: 2}
 --- !u!4 &1356546610
 Transform:
   m_ObjectHideFlags: 0
@@ -9936,6 +10006,7 @@ MonoBehaviour:
   HudItems:
   - {fileID: 1188248053}
   - {fileID: 713126668}
+  - {fileID: 213819796}
 --- !u!1 &1392513769
 GameObject:
   m_ObjectHideFlags: 0
@@ -10892,6 +10963,7 @@ RectTransform:
   - {fileID: 1188248054}
   - {fileID: 713126669}
   - {fileID: 1672832324}
+  - {fileID: 213819797}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -10961,10 +11033,10 @@ MonoBehaviour:
     broken through the lock on the barn and escaped. Go find them and herd them back
     to the barn before the zombies eat them.
 
-    
 
-    Don''t leave the barn for
-    too long though, or the cows will break the padlock open again and escape.'
+
+    Don''t leave the barn for too
+    long though, or the cows will break the padlock open again and escape.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3f365ad6e3f063443808cb0a3c2b7a87, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 85930ad6f26a24c4fbc92b59d75d1725, type: 2}

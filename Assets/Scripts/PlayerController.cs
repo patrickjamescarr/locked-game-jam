@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour, IDamageable, ICanPickUp
 	public BoolEventSO cowCanHerd;
 	public VoidEventSO playerDied;
 	public VoidEventSO restartGameEvent;
+	public PlayerTakeDamageSO playerTakeDamage;
 
 	[Header("Stats")]
 	public float health = 100f;
@@ -49,6 +50,7 @@ public class PlayerController : MonoBehaviour, IDamageable, ICanPickUp
 		speed = originalSpeed;
 		initialPosition = transform.position;
 		initialHealth = health;
+		playerTakeDamage.RaiseEvent(initialHealth);
 		gun.SetAmmo(startingAmmo);
 	}
 
@@ -69,6 +71,7 @@ public class PlayerController : MonoBehaviour, IDamageable, ICanPickUp
 		this.transform.position = initialPosition;
 		speed = originalSpeed;
 		health = initialHealth;
+		playerTakeDamage.RaiseEvent(initialHealth);
 		canHerdCow = false;
 		gun.SetAmmo(startingAmmo);
 	}
@@ -252,6 +255,8 @@ public class PlayerController : MonoBehaviour, IDamageable, ICanPickUp
 			DisplayDamageText(damage);
 
 		health -= damage;
+
+		playerTakeDamage.RaiseEvent(health);
 
 		if (health <= 0f)
 			Die();
