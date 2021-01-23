@@ -170,6 +170,10 @@ public class PlayerController : MonoBehaviour, IDamageable, ICanPickUp
 		flipped = mouseHorizontalPosition < 0;
 
 		transform.rotation = Quaternion.Euler(new Vector3(0f, flipped ? 180f : 0f, 0f));
+
+		animator.SetBool("GunEquiped", !IsHerdingCow);
+
+		gunSprite.gameObject.SetActive(!IsHerdingCow);
 	}
 
 	private void MovePlayer()
