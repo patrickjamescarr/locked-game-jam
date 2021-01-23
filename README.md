@@ -1,4 +1,6 @@
-# locked-game-jam
+# Padlock Ranch 
+- Made for the "My First Game Jam: Winter 2021" game jam.
+- Theme: "locked"
 
 
 
@@ -17,3 +19,7 @@ The font used is Hardpixel by Jovanny Lemonad https://www.1001freefonts.com/hard
 # Audio
 
 1. Reload SFX - https://freesound.org/people/nioczkus/sounds/396331/
+
+# Icons
+
+1. Controller Icons - https://kenney.nl/assets/game-icons-expansion

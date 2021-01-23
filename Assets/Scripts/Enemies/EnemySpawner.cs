@@ -28,14 +28,17 @@ public class EnemySpawner : MonoBehaviour
 
 	private void Update()
 	{
-		if (timeSinceLastWave >= timeBetweenWaves)
+		if (GameSettings.inGame)
 		{
-			SpawnWave();
-			timeSinceLastWave = 0f;
-		}
-		else
-		{
-			timeSinceLastWave += Time.deltaTime;
+			if (timeSinceLastWave >= timeBetweenWaves)
+			{
+				SpawnWave();
+				timeSinceLastWave = 0f;
+			}
+			else
+			{
+				timeSinceLastWave += Time.deltaTime;
+			}
 		}
 	}
 

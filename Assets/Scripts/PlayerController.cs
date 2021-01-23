@@ -220,9 +220,6 @@ public class PlayerController : MonoBehaviour, IDamageable, ICanPickUp
 			direction.y = -1.0f;
 		}
 
-		Debug.Log(direction);
-
-
 		// flip the gun sprite on the y axis when facing left
 		gunSprite.GetComponent<SpriteRenderer>().flipY = flipped;
 

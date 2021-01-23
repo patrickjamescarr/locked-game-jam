@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
 	public GameObject playerDiedUI;
 	public TMP_Text ammoInfoText;
 	public TMP_Text savedCowsText;
+	public GameObject startGameUI;
 
 	[Header("Events")]
     [SerializeField] private VoidEventSO quitGameEvent = default;
@@ -36,6 +37,11 @@ public class GameManager : MonoBehaviour
 		initialVolume = AudioListener.volume;
 		AudioListener.volume = 0;
 
+		startGameUI.SetActive(true);
+	}
+
+	public void StartTheGame()
+	{
 		StartGame();
 	}
 
@@ -107,7 +113,7 @@ public class GameManager : MonoBehaviour
 
 	private void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.Escape) && pauseUI != null)
+		if (GameSettings.inGame && Input.GetKeyDown(KeyCode.Escape) && pauseUI != null)
 		{
 			var displayMenu = !pauseUI.activeSelf;
 			DisplayCanvas(pauseUI, displayMenu);
