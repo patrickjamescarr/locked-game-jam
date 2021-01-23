@@ -5337,34 +5337,10 @@ CompositeCollider2D:
   m_GenerationType: 0
   m_EdgeRadius: 0
   m_ColliderPaths:
-  - m_Collider: {fileID: 369582612}
-    m_ColliderPaths:
-    - - X: 310000000
-        Y: 250000000
-      - X: -150000000
-        Y: 250000000
-      - X: -150000000
-        Y: -240000000
-      - X: 310000000
-        Y: -240000000
-    - - X: -130000000
-        Y: -220000000
-      - X: -130000000
-        Y: 230000000
-      - X: 290000000
-        Y: 230000000
-      - X: 290000000
-        Y: -220000000
+  - m_Collider: {fileID: 0}
+    m_ColliderPaths: []
   m_CompositePaths:
-    m_Paths:
-    - - {x: 30.999971, y: -24}
-      - {x: 30.999971, y: 25}
-      - {x: -15, y: 24.999971}
-      - {x: -14.999971, y: -24}
-    - - {x: 29, y: -21.999971}
-      - {x: -13, y: -21.999971}
-      - {x: -12.99997, y: 23}
-      - {x: 29, y: 22.999971}
+    m_Paths: []
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
 --- !u!50 &369582611
@@ -6346,10 +6322,10 @@ MonoBehaviour:
     broken through the lock on the barn and escaped. Go find them and herd them back
     to the barn before the zombies eat them.
 
-    
 
-    Don''t leave the barn for
-    too long though, or the cows will break the padlock open again and escape.'
+
+    Don''t leave the barn for too
+    long though, or the cows will break the padlock open again and escape.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3f365ad6e3f063443808cb0a3c2b7a87, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 85930ad6f26a24c4fbc92b59d75d1725, type: 2}
@@ -9340,6 +9316,12 @@ PrefabInstance:
       propertyPath: herdCircle
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 881106986913785147, guid: fc11072e187288241af9ccb52feed090,
+        type: 3}
+      propertyPath: playerTakeDamage
+      value: 
+      objectReference: {fileID: 11400000, guid: 934d60f6a7908874ba7cd98db7862bc3,
+        type: 2}
     - target: {fileID: 2579602513905728068, guid: fc11072e187288241af9ccb52feed090,
         type: 3}
       propertyPath: m_Volume
@@ -10293,10 +10275,10 @@ MonoBehaviour:
     broken through the lock on the barn and escaped. Go find them and herd them back
     to the barn before the zombies eat them.
 
-    
 
-    Don''t leave the barn for
-    too long though, or the cows will break the padlock open again and escape.'
+
+    Don''t leave the barn for too
+    long though, or the cows will break the padlock open again and escape.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3f365ad6e3f063443808cb0a3c2b7a87, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 85930ad6f26a24c4fbc92b59d75d1725, type: 2}
@@ -10910,6 +10892,8 @@ MonoBehaviour:
   ammoInfoText: {fileID: 296545585}
   savedCowsText: {fileID: 113826049}
   startGameUI: {fileID: 1672832323}
+  healthUI: {fileID: 0}
+  heart: {fileID: 7090217423664659252, guid: 678e34541873354418a99fea1010884d, type: 3}
   quitGameEvent: {fileID: 11400000, guid: 09113290e35f8ca4184e6e55599c3732, type: 2}
   cowCanHerd: {fileID: 11400000, guid: 2ca95b44612c61f4e8ae08c5319dc43f, type: 2}
   playerDiedEvent: {fileID: 11400000, guid: 6f8826a09fb2fe4489fff2574c9c3d53, type: 2}
@@ -10922,6 +10906,7 @@ MonoBehaviour:
     type: 2}
   displayHudEventChannel: {fileID: 11400000, guid: ccfa01a298de7cf438af8cac9c2d32f5,
     type: 2}
+  playerTakeDamage: {fileID: 11400000, guid: 934d60f6a7908874ba7cd98db7862bc3, type: 2}
 --- !u!4 &1356546610
 Transform:
   m_ObjectHideFlags: 0
@@ -10974,8 +10959,9 @@ MonoBehaviour:
   displayHudEventChannel: {fileID: 11400000, guid: ccfa01a298de7cf438af8cac9c2d32f5,
     type: 2}
   HudItems:
-  - {fileID: 1188248053}
-  - {fileID: 713126668}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &1392513769
 GameObject:
   m_ObjectHideFlags: 0
@@ -12000,10 +11986,10 @@ MonoBehaviour:
     broken through the lock on the barn and escaped. Go find them and herd them back
     to the barn before the zombies eat them.
 
-    
 
-    Don''t leave the barn for
-    too long though, or the cows will break the padlock open again and escape.'
+
+    Don''t leave the barn for too
+    long though, or the cows will break the padlock open again and escape.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3f365ad6e3f063443808cb0a3c2b7a87, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 85930ad6f26a24c4fbc92b59d75d1725, type: 2}
@@ -31617,6 +31603,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1694341949122786183, guid: c8d884058fbe23f49832be5fdbacd7fd,
+        type: 3}
+      propertyPath: timeBetweenWaves
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c8d884058fbe23f49832be5fdbacd7fd, type: 3}

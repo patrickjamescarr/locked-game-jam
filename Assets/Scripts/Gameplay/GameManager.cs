@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
 	private CowManager cowManager;
 	private bool isMuted = true;
 	private float initialVolume = 30f;
+	private List<Image> healthHearts;
 
 	[Header("UI")]
 	public GameObject pauseUI;
@@ -18,6 +20,8 @@ public class GameManager : MonoBehaviour
 	public TMP_Text ammoInfoText;
 	public TMP_Text savedCowsText;
 	public GameObject startGameUI;
+	public GameObject healthUI;
+	public GameObject heart;
 
 	[Header("Events")]
 	[SerializeField] private VoidEventSO quitGameEvent = default;
@@ -30,6 +34,7 @@ public class GameManager : MonoBehaviour
 	[SerializeField] private BoolEventSO penOpenEvent = default;
 	[SerializeField] private AmmoEventSO ammoChangedEventChannel = default;
 	[SerializeField] private BoolEventSO displayHudEventChannel = default;
+	[SerializeField] private PlayerTakeDamageSO playerTakeDamage = default;
 
 	private void Start()
 	{
@@ -83,6 +88,9 @@ public class GameManager : MonoBehaviour
 
 		if (ammoChangedEventChannel != null)
 			ammoChangedEventChannel.OnEventRaised += AmmoChanged;
+
+		if (playerTakeDamage != null)
+			playerTakeDamage.OnEventRaised += HealthChanged;
 	}
 
 	private void OnDisable()
@@ -110,6 +118,9 @@ public class GameManager : MonoBehaviour
 
 		if (ammoChangedEventChannel != null)
 			ammoChangedEventChannel.OnEventRaised -= AmmoChanged;
+
+		if (playerTakeDamage != null)
+			playerTakeDamage.OnEventRaised -= HealthChanged;
 	}
 
 	private bool gamePaused = false;
@@ -256,5 +267,25 @@ public class GameManager : MonoBehaviour
 	{
 		if (ammoInfoText != null)
 			ammoInfoText.text = $"{ammo.currentBulletsInClip} / {ammo.clipSize}  [{ammo.heldBullets}]";
+	}
+	private void HealthChanged(float health)
+	{
+		var heartCount = Mathf.CeilToInt(health / 10);
+
+		if (healthHearts != null)
+		{
+			foreach (var healthHeart in healthHearts)
+			{
+				Destroy(healthHeart.gameObject);
+			}
+		}
+
+		healthHearts = new List<Image>();
+
+		for (int i = 0; i < heartCount; i++)
+		{
+			GameObject heartInstance = Instantiate(heart, healthUI.transform);
+			healthHearts.Add(heartInstance.GetComponent<Image>());
+		}
 	}
 }

@@ -24,12 +24,16 @@ public class PlayerController : MonoBehaviour, IDamageable, ICanPickUp
 	public BoolEventSO cowCanHerd;
 	public VoidEventSO playerDied;
 	public VoidEventSO restartGameEvent;
+	public PlayerTakeDamageSO playerTakeDamage;
 
 	[Header("Stats")]
 	public float health = 100f;
 	public float originalSpeed = 5f;
 	public float herdRange = 2f;
 	public AmmoInfo startingAmmo;
+
+	[Header("Misc")]
+	public GameObject blood;
 
 	public bool IsHerdingCow
 	{
@@ -49,6 +53,7 @@ public class PlayerController : MonoBehaviour, IDamageable, ICanPickUp
 		speed = originalSpeed;
 		initialPosition = transform.position;
 		initialHealth = health;
+		playerTakeDamage.RaiseEvent(initialHealth);
 		gun.SetAmmo(startingAmmo);
 	}
 
@@ -69,6 +74,7 @@ public class PlayerController : MonoBehaviour, IDamageable, ICanPickUp
 		this.transform.position = initialPosition;
 		speed = originalSpeed;
 		health = initialHealth;
+		playerTakeDamage.RaiseEvent(initialHealth);
 		canHerdCow = false;
 		gun.SetAmmo(startingAmmo);
 	}
@@ -164,6 +170,10 @@ public class PlayerController : MonoBehaviour, IDamageable, ICanPickUp
 		flipped = mouseHorizontalPosition < 0;
 
 		transform.rotation = Quaternion.Euler(new Vector3(0f, flipped ? 180f : 0f, 0f));
+
+		animator.SetBool("GunEquiped", !IsHerdingCow);
+
+		gunSprite.gameObject.SetActive(!IsHerdingCow);
 	}
 
 	private void MovePlayer()
@@ -252,6 +262,10 @@ public class PlayerController : MonoBehaviour, IDamageable, ICanPickUp
 			DisplayDamageText(damage);
 
 		health -= damage;
+
+		Instantiate(blood, transform.position, Quaternion.identity);
+
+		playerTakeDamage.RaiseEvent(health);
 
 		if (health <= 0f)
 			Die();

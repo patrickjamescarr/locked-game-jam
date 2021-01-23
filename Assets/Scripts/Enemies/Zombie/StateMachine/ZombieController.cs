@@ -33,6 +33,7 @@ public class ZombieController : MonoBehaviour, IDamageable
 	public GameObject damageTextPrefab;
 	public PickUpSO droppable;
 	public GameObject pickUpPrefab;
+	public GameObject blood;
 
 	private int attackTriggerCount = 0;
 
@@ -110,6 +111,8 @@ public class ZombieController : MonoBehaviour, IDamageable
 	public void TakeDamage(float damage)
 	{
 		health -= (int)damage;
+
+		Instantiate(blood, transform.position, Quaternion.identity);
 
 		if (damageTextPrefab != null)
 			DisplayDamageText(damage);

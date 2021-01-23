@@ -110,6 +110,7 @@ MonoBehaviour:
   cowCanHerd: {fileID: 11400000, guid: 2ca95b44612c61f4e8ae08c5319dc43f, type: 2}
   playerDied: {fileID: 11400000, guid: 6f8826a09fb2fe4489fff2574c9c3d53, type: 2}
   restartGameEvent: {fileID: 11400000, guid: 5ba76a3e45e225c46a5fbc6363cd0962, type: 2}
+  playerTakeDamage: {fileID: 0}
   health: 100
   originalSpeed: 2.5
   herdRange: 2
@@ -117,6 +118,7 @@ MonoBehaviour:
     clipSize: 6
     currentBulletsInClip: 6
     heldBullets: 12
+  blood: {fileID: 1179385363282576889, guid: b1a69b2f6b6b00f4a96ea98f145703de, type: 3}
 --- !u!50 &404732088
 Rigidbody2D:
   serializedVersion: 4

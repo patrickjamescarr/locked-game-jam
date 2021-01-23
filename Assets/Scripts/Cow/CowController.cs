@@ -21,6 +21,7 @@ public class CowController : MonoBehaviour, IDamageable
 
 	[Header("Misc")]
 	public GameObject damageTextPrefab;
+	public GameObject blood;
 
 	private StateMachine stateMachine;
 	private Seeker seeker;
@@ -39,6 +40,7 @@ public class CowController : MonoBehaviour, IDamageable
 
 	private Animator animator;
 	private SpriteRenderer spriteRenderer;
+
 
 	private void Start()
 	{
@@ -62,6 +64,8 @@ public class CowController : MonoBehaviour, IDamageable
 	public void TakeDamage(float damage)
 	{
 		health -= damage;
+
+		Instantiate(blood, transform.position, Quaternion.identity);
 
 		if (damageTextPrefab != null)
 			DisplayDamageText(damage);
