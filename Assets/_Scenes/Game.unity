@@ -30854,6 +30854,21 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3943408921343182216, guid: 4f188cd56cf2b374b97eb04c59adc6d3,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 1.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3943408921343182216, guid: 4f188cd56cf2b374b97eb04c59adc6d3,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3943408921343182216, guid: 4f188cd56cf2b374b97eb04c59adc6d3,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: -0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4054610367214049720, guid: 4f188cd56cf2b374b97eb04c59adc6d3,
         type: 3}
       propertyPath: m_Points.m_Paths.Array.data[0].Array.data[4].x
